@@ -1,0 +1,13 @@
+INPUT(
+./debug\main.o
+./debug\sysinfo.o
+./debug\security.o
+./debug\gui.o
+./debug\aquamark3.o
+./debug\functions.o
+./debug\hwbotapi.o
+./debug\splash.o
+./debug\qrc_res.o
+./debug\moc_gui.o
+./debug\moc_splash.o
+);

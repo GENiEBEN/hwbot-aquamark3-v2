@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>motherboard.png</file>
+        <file>ram.png</file>
+        <file>hwbot.ico</file>
+        <file>cpu.png</file>
+        <file>windows.png</file>
+        <file>gfx.png</file>
+    </qresource>
+</RCC>
