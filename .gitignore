@@ -2,6 +2,7 @@ Install HWBOT Aquamark³.exe
 hwbotaqua3/security.cpp
 hwbotaqua3/security.h
 hash checking.txt
+log.txt
 *.out
 *.o
 
