@@ -36,5 +36,4 @@ RESOURCES += \
 
 QMAKE_CXXFLAGS_RELEASE += -O3 -ffast-math -ftracer
 
-RC_ICONS = icon.ico
-
+RC_ICONS = res\icon.ico

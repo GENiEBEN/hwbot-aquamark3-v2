@@ -1,7 +1,0 @@
-[2013-12-31T00:15:48] background set 
-[2013-12-31T00:15:48] ideal thread count: 4 
-[2013-12-31T00:15:48] settings read and applied 
-[2013-12-31T00:15:48] systeminfo is enabled 
-[2013-12-31T00:15:54] dxdiag launched: 1 
-[2013-12-31T00:15:56] gpuz dump result: 1 
-[2013-12-31T00:15:56] systeminfo displayed in gui 

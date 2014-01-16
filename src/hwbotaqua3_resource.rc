@@ -4,7 +4,7 @@
 #  include <winver.h>
 # endif
 
-IDI_ICON1	ICON	DISCARDABLE	"E:\\cloud\\GDrive\\dev\\private\\HWBOT Aquamark³\\Source Code v2.5 (Qt5)\\hwbotaqua3\\icon.ico"
+IDI_ICON1	ICON	DISCARDABLE	"E:\\cloud\\GDrive\\dev\\github\\hwbot-aquamark3\\src\\res\\icon.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

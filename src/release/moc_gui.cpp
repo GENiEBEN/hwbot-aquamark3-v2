@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../hwbotaqua3/gui.h"
+#include "../gui.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_frmMain_t {
-    QByteArrayData data[29];
-    char stringdata[726];
+    QByteArrayData data[33];
+    char stringdata[781];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -57,7 +57,11 @@ QT_MOC_LITERAL(24, 549, 34),
 QT_MOC_LITERAL(25, 584, 28),
 QT_MOC_LITERAL(26, 613, 36),
 QT_MOC_LITERAL(27, 650, 32),
-QT_MOC_LITERAL(28, 683, 41)
+QT_MOC_LITERAL(28, 683, 41),
+QT_MOC_LITERAL(29, 725, 25),
+QT_MOC_LITERAL(30, 751, 16),
+QT_MOC_LITERAL(31, 768, 4),
+QT_MOC_LITERAL(32, 773, 6)
     },
     "frmMain\0on_btnStart_clicked\0\0"
     "on_btnSave_clicked\0on_dial_valueChanged\0"
@@ -82,6 +86,8 @@ QT_MOC_LITERAL(28, 683, 41)
     "on_cbProcessPrio_currentIndexChanged\0"
     "on_slider_SSQuality_valueChanged\0"
     "on_cbScreenshotFormat_currentIndexChanged\0"
+    "on_treeWidget_itemClicked\0QTreeWidgetItem*\0"
+    "item\0column\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -91,7 +97,7 @@ static const uint qt_meta_data_frmMain[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      25,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -99,31 +105,32 @@ static const uint qt_meta_data_frmMain[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  139,    2, 0x08,
-       3,    0,  140,    2, 0x08,
-       4,    1,  141,    2, 0x08,
-       6,    0,  144,    2, 0x08,
-       7,    0,  145,    2, 0x08,
-       8,    0,  146,    2, 0x08,
-       9,    0,  147,    2, 0x08,
-      10,    0,  148,    2, 0x08,
-      11,    0,  149,    2, 0x08,
-      12,    0,  150,    2, 0x08,
-      13,    0,  151,    2, 0x08,
-      14,    0,  152,    2, 0x08,
-      15,    0,  153,    2, 0x08,
-      16,    0,  154,    2, 0x08,
-      17,    1,  155,    2, 0x08,
-      19,    1,  158,    2, 0x08,
-      21,    1,  161,    2, 0x08,
-      22,    1,  164,    2, 0x08,
-      23,    1,  167,    2, 0x08,
-      24,    1,  170,    2, 0x08,
-      25,    1,  173,    2, 0x08,
-      17,    1,  176,    2, 0x08,
-      26,    1,  179,    2, 0x08,
-      27,    1,  182,    2, 0x08,
-      28,    1,  185,    2, 0x08,
+       1,    0,  144,    2, 0x08,
+       3,    0,  145,    2, 0x08,
+       4,    1,  146,    2, 0x08,
+       6,    0,  149,    2, 0x08,
+       7,    0,  150,    2, 0x08,
+       8,    0,  151,    2, 0x08,
+       9,    0,  152,    2, 0x08,
+      10,    0,  153,    2, 0x08,
+      11,    0,  154,    2, 0x08,
+      12,    0,  155,    2, 0x08,
+      13,    0,  156,    2, 0x08,
+      14,    0,  157,    2, 0x08,
+      15,    0,  158,    2, 0x08,
+      16,    0,  159,    2, 0x08,
+      17,    1,  160,    2, 0x08,
+      19,    1,  163,    2, 0x08,
+      21,    1,  166,    2, 0x08,
+      22,    1,  169,    2, 0x08,
+      23,    1,  172,    2, 0x08,
+      24,    1,  175,    2, 0x08,
+      25,    1,  178,    2, 0x08,
+      17,    1,  181,    2, 0x08,
+      26,    1,  184,    2, 0x08,
+      27,    1,  187,    2, 0x08,
+      28,    1,  190,    2, 0x08,
+      29,    2,  193,    2, 0x08,
 
  // slots: parameters
     QMetaType::Void,
@@ -151,6 +158,7 @@ static const uint qt_meta_data_frmMain[] = {
     QMetaType::Void, QMetaType::QString,   20,
     QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void, QMetaType::QString,   20,
+    QMetaType::Void, 0x80000000 | 30, QMetaType::Int,   31,   32,
 
        0        // eod
 };
@@ -185,6 +193,7 @@ void frmMain::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 22: _t->on_cbProcessPrio_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 23: _t->on_slider_SSQuality_valueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 24: _t->on_cbScreenshotFormat_currentIndexChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 25: _t->on_treeWidget_itemClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -215,13 +224,13 @@ int frmMain::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 25)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 25;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 25)
+        if (_id < 26)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 25;
+        _id -= 26;
     }
     return _id;
 }

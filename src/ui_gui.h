@@ -33,6 +33,7 @@
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBox>
+#include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -102,12 +103,11 @@ public:
     QLabel *lblScore_C8;
     QLabel *lblScore_C7;
     QWidget *tab_2;
-    QGroupBox *gbAffinity;
-    QComboBox *cbProcessPrio;
-    QLabel *lblProcessPrio;
-    QLabel *lblLODVal;
-    QLabel *lblLOD;
-    QDial *dial;
+    QTreeWidget *treeWidget;
+    QStackedWidget *stack_settings;
+    QWidget *Page_Settings_blank;
+    QWidget *Page_Settings_CPU;
+    QGroupBox *gbCores;
     QFrame *frame;
     QCheckBox *ckbCore01;
     QCheckBox *ckbCore02;
@@ -173,25 +173,31 @@ public:
     QCheckBox *ckbCore62;
     QCheckBox *ckbCore63;
     QCheckBox *ckbCore64;
-    QLabel *lblLOD_2;
-    QGroupBox *gbAppsets;
-    QLabel *lblHideLogo;
-    QComboBox *cbHideLogo;
-    QLabel *lblRunMode;
-    QComboBox *cbRunMode;
-    QLabel *lblOSD;
-    QComboBox *cbOSD;
+    QComboBox *cbProcessPrio;
+    QLabel *lblProcessPrio;
+    QWidget *Page_Settings_TweaksATI;
+    QDial *dial;
+    QLabel *lblLOD;
+    QLabel *lblLODVal;
+    QWidget *Page_Settings_Benchmark;
     QComboBox *cbHideError;
     QLabel *lblOSD_2;
-    QGroupBox *groupBox;
+    QLabel *lblHideLogo;
+    QComboBox *cbRunMode;
+    QLabel *lblOSD;
+    QLabel *lblRunMode;
+    QComboBox *cbOSD;
+    QComboBox *cbHideLogo;
+    QWidget *Page_Settings_Interface;
+    QSlider *slider_SSQuality;
+    QLabel *lblSysInfo_2;
+    QComboBox *cbTheme;
+    QLabel *lblSysInfo_3;
+    QComboBox *cbScreenshotFormat;
+    QLabel *lblSysInfo_4;
+    QWidget *Page_Settings_Plugins_SI;
     QComboBox *cbSIenabled;
     QLabel *lblSysInfo;
-    QComboBox *cbTheme;
-    QLabel *lblSysInfo_2;
-    QComboBox *cbScreenshotFormat;
-    QLabel *lblSysInfo_3;
-    QSlider *slider_SSQuality;
-    QLabel *lblSysInfo_4;
     QWidget *tab_3;
     QStackedWidget *stacked_CompareOnline;
     QWidget *page_5;
@@ -226,9 +232,9 @@ public:
     {
         if (frmMain->objectName().isEmpty())
             frmMain->setObjectName(QStringLiteral("frmMain"));
-        frmMain->resize(640, 547);
+        frmMain->resize(640, 542);
         QFont font;
-        font.setFamily(QStringLiteral("Courier New"));
+        font.setFamily(QStringLiteral("Meiryo UI"));
         frmMain->setFont(font);
         QIcon icon;
         icon.addFile(QStringLiteral(":/images/hwbot.ico"), QSize(), QIcon::Normal, QIcon::Off);
@@ -260,6 +266,7 @@ public:
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setGeometry(QRect(10, 10, 621, 461));
+        tabWidget->setFont(font);
         tabWidget->setTabShape(QTabWidget::Rounded);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
@@ -313,13 +320,13 @@ public:
         iconVGA->setObjectName(QStringLiteral("iconVGA"));
         iconVGA->setGeometry(QRect(10, 210, 64, 64));
         iconVGA->setFrameShape(QFrame::NoFrame);
-        iconVGA->setPixmap(QPixmap(QString::fromUtf8(":/images/gfx.png")));
+        iconVGA->setPixmap(QPixmap(QString::fromUtf8(":/images/res/gfx.png")));
         iconVGA->setScaledContents(true);
         iconRAM = new QLabel(page_3);
         iconRAM->setObjectName(QStringLiteral("iconRAM"));
         iconRAM->setGeometry(QRect(10, 140, 64, 64));
         iconRAM->setFrameShape(QFrame::NoFrame);
-        iconRAM->setPixmap(QPixmap(QString::fromUtf8(":/images/ram.png")));
+        iconRAM->setPixmap(QPixmap(QString::fromUtf8(":/images/res/ram.png")));
         iconRAM->setScaledContents(true);
         lblCPU_Speed = new QLabel(page_3);
         lblCPU_Speed->setObjectName(QStringLiteral("lblCPU_Speed"));
@@ -342,7 +349,7 @@ public:
         iconOS->setObjectName(QStringLiteral("iconOS"));
         iconOS->setGeometry(QRect(10, 280, 64, 64));
         iconOS->setFrameShape(QFrame::NoFrame);
-        iconOS->setPixmap(QPixmap(QString::fromUtf8(":/images/windows.png")));
+        iconOS->setPixmap(QPixmap(QString::fromUtf8(":/images/res/windows.png")));
         iconOS->setScaledContents(true);
         lblCPU_Name = new QLabel(page_3);
         lblCPU_Name->setObjectName(QStringLiteral("lblCPU_Name"));
@@ -375,7 +382,7 @@ public:
         iconCPU->setObjectName(QStringLiteral("iconCPU"));
         iconCPU->setGeometry(QRect(10, 0, 64, 64));
         iconCPU->setFrameShape(QFrame::NoFrame);
-        iconCPU->setPixmap(QPixmap(QString::fromUtf8(":/images/cpu.png")));
+        iconCPU->setPixmap(QPixmap(QString::fromUtf8(":/images/res/cpu.png")));
         iconCPU->setScaledContents(true);
         lblGFX_Speed = new QLabel(page_3);
         lblGFX_Speed->setObjectName(QStringLiteral("lblGFX_Speed"));
@@ -401,7 +408,7 @@ public:
         iconMOBO->setObjectName(QStringLiteral("iconMOBO"));
         iconMOBO->setGeometry(QRect(10, 70, 64, 64));
         iconMOBO->setFrameShape(QFrame::NoFrame);
-        iconMOBO->setPixmap(QPixmap(QString::fromUtf8(":/images/motherboard.png")));
+        iconMOBO->setPixmap(QPixmap(QString::fromUtf8(":/images/res/motherboard.png")));
         iconMOBO->setScaledContents(true);
         lblGFX_Name = new QLabel(page_3);
         lblGFX_Name->setObjectName(QStringLiteral("lblGFX_Name"));
@@ -505,46 +512,41 @@ public:
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        gbAffinity = new QGroupBox(tab_2);
-        gbAffinity->setObjectName(QStringLiteral("gbAffinity"));
-        gbAffinity->setGeometry(QRect(10, 10, 591, 241));
-        QFont font4;
-        font4.setPointSize(8);
-        font4.setBold(false);
-        font4.setWeight(50);
-        gbAffinity->setFont(font4);
-        cbProcessPrio = new QComboBox(gbAffinity);
-        cbProcessPrio->setObjectName(QStringLiteral("cbProcessPrio"));
-        cbProcessPrio->setGeometry(QRect(170, 210, 251, 22));
-        lblProcessPrio = new QLabel(gbAffinity);
-        lblProcessPrio->setObjectName(QStringLiteral("lblProcessPrio"));
-        lblProcessPrio->setGeometry(QRect(10, 210, 151, 16));
-        lblProcessPrio->setFont(font1);
-        lblLODVal = new QLabel(gbAffinity);
-        lblLODVal->setObjectName(QStringLiteral("lblLODVal"));
-        lblLODVal->setGeometry(QRect(440, 170, 141, 20));
-        QFont font5;
-        font5.setPointSize(9);
-        font5.setBold(false);
-        font5.setWeight(50);
-        lblLODVal->setFont(font5);
-        lblLODVal->setAlignment(Qt::AlignCenter);
-        lblLOD = new QLabel(gbAffinity);
-        lblLOD->setObjectName(QStringLiteral("lblLOD"));
-        lblLOD->setGeometry(QRect(430, 150, 161, 16));
-        lblLOD->setFont(font5);
-        lblLOD->setAlignment(Qt::AlignCenter);
-        dial = new QDial(gbAffinity);
-        dial->setObjectName(QStringLiteral("dial"));
-        dial->setGeometry(QRect(440, 30, 141, 111));
-        dial->setMinimum(-108);
-        dial->setMaximum(108);
-        dial->setSingleStep(1);
-        dial->setPageStep(13);
-        dial->setNotchesVisible(true);
-        frame = new QFrame(gbAffinity);
+        treeWidget = new QTreeWidget(tab_2);
+        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem(treeWidget);
+        new QTreeWidgetItem(__qtreewidgetitem);
+        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem(__qtreewidgetitem);
+        new QTreeWidgetItem(__qtreewidgetitem1);
+        new QTreeWidgetItem(__qtreewidgetitem1);
+        new QTreeWidgetItem(__qtreewidgetitem1);
+        new QTreeWidgetItem(treeWidget);
+        new QTreeWidgetItem(treeWidget);
+        new QTreeWidgetItem(treeWidget);
+        QTreeWidgetItem *__qtreewidgetitem2 = new QTreeWidgetItem(treeWidget);
+        new QTreeWidgetItem(__qtreewidgetitem2);
+        treeWidget->setObjectName(QStringLiteral("treeWidget"));
+        treeWidget->setGeometry(QRect(0, 0, 161, 431));
+        treeWidget->setFrameShape(QFrame::NoFrame);
+        treeWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        treeWidget->setProperty("showDropIndicator", QVariant(false));
+        treeWidget->setUniformRowHeights(true);
+        treeWidget->setHeaderHidden(true);
+        treeWidget->setExpandsOnDoubleClick(false);
+        treeWidget->header()->setVisible(false);
+        stack_settings = new QStackedWidget(tab_2);
+        stack_settings->setObjectName(QStringLiteral("stack_settings"));
+        stack_settings->setGeometry(QRect(170, 0, 451, 431));
+        Page_Settings_blank = new QWidget();
+        Page_Settings_blank->setObjectName(QStringLiteral("Page_Settings_blank"));
+        stack_settings->addWidget(Page_Settings_blank);
+        Page_Settings_CPU = new QWidget();
+        Page_Settings_CPU->setObjectName(QStringLiteral("Page_Settings_CPU"));
+        gbCores = new QGroupBox(Page_Settings_CPU);
+        gbCores->setObjectName(QStringLiteral("gbCores"));
+        gbCores->setGeometry(QRect(0, 10, 431, 201));
+        frame = new QFrame(gbCores);
         frame->setObjectName(QStringLiteral("frame"));
-        frame->setGeometry(QRect(10, 30, 411, 171));
+        frame->setGeometry(QRect(10, 20, 411, 171));
         frame->setFrameShape(QFrame::NoFrame);
         frame->setFrameShadow(QFrame::Plain);
         frame->setLineWidth(0);
@@ -740,84 +742,110 @@ public:
         ckbCore64 = new QCheckBox(frame);
         ckbCore64->setObjectName(QStringLiteral("ckbCore64"));
         ckbCore64->setGeometry(QRect(360, 150, 41, 17));
-        lblLOD_2 = new QLabel(gbAffinity);
-        lblLOD_2->setObjectName(QStringLiteral("lblLOD_2"));
-        lblLOD_2->setGeometry(QRect(420, 190, 161, 16));
-        QFont font6;
-        font6.setPointSize(9);
-        font6.setBold(false);
-        font6.setItalic(true);
-        font6.setWeight(50);
-        lblLOD_2->setFont(font6);
-        lblLOD_2->setAlignment(Qt::AlignCenter);
-        gbAppsets = new QGroupBox(tab_2);
-        gbAppsets->setObjectName(QStringLiteral("gbAppsets"));
-        gbAppsets->setGeometry(QRect(10, 260, 301, 161));
-        lblHideLogo = new QLabel(gbAppsets);
-        lblHideLogo->setObjectName(QStringLiteral("lblHideLogo"));
-        lblHideLogo->setGeometry(QRect(10, 60, 161, 16));
-        lblHideLogo->setFont(font5);
-        cbHideLogo = new QComboBox(gbAppsets);
-        cbHideLogo->setObjectName(QStringLiteral("cbHideLogo"));
-        cbHideLogo->setGeometry(QRect(180, 60, 111, 22));
-        lblRunMode = new QLabel(gbAppsets);
-        lblRunMode->setObjectName(QStringLiteral("lblRunMode"));
-        lblRunMode->setGeometry(QRect(10, 30, 161, 16));
-        lblRunMode->setFont(font1);
-        cbRunMode = new QComboBox(gbAppsets);
-        cbRunMode->setObjectName(QStringLiteral("cbRunMode"));
-        cbRunMode->setGeometry(QRect(180, 30, 111, 22));
-        lblOSD = new QLabel(gbAppsets);
-        lblOSD->setObjectName(QStringLiteral("lblOSD"));
-        lblOSD->setGeometry(QRect(10, 90, 161, 16));
-        lblOSD->setFont(font5);
-        cbOSD = new QComboBox(gbAppsets);
-        cbOSD->setObjectName(QStringLiteral("cbOSD"));
-        cbOSD->setGeometry(QRect(180, 90, 111, 22));
-        cbHideError = new QComboBox(gbAppsets);
+        cbProcessPrio = new QComboBox(Page_Settings_CPU);
+        cbProcessPrio->setObjectName(QStringLiteral("cbProcessPrio"));
+        cbProcessPrio->setGeometry(QRect(180, 220, 251, 22));
+        lblProcessPrio = new QLabel(Page_Settings_CPU);
+        lblProcessPrio->setObjectName(QStringLiteral("lblProcessPrio"));
+        lblProcessPrio->setGeometry(QRect(0, 220, 151, 16));
+        QFont font4;
+        font4.setPointSize(9);
+        font4.setBold(false);
+        font4.setWeight(50);
+        lblProcessPrio->setFont(font4);
+        stack_settings->addWidget(Page_Settings_CPU);
+        Page_Settings_TweaksATI = new QWidget();
+        Page_Settings_TweaksATI->setObjectName(QStringLiteral("Page_Settings_TweaksATI"));
+        dial = new QDial(Page_Settings_TweaksATI);
+        dial->setObjectName(QStringLiteral("dial"));
+        dial->setGeometry(QRect(150, 10, 141, 111));
+        dial->setMinimum(-108);
+        dial->setMaximum(108);
+        dial->setSingleStep(1);
+        dial->setPageStep(13);
+        dial->setNotchesVisible(true);
+        lblLOD = new QLabel(Page_Settings_TweaksATI);
+        lblLOD->setObjectName(QStringLiteral("lblLOD"));
+        lblLOD->setGeometry(QRect(10, 130, 431, 20));
+        lblLOD->setFont(font4);
+        lblLOD->setAlignment(Qt::AlignCenter);
+        lblLODVal = new QLabel(Page_Settings_TweaksATI);
+        lblLODVal->setObjectName(QStringLiteral("lblLODVal"));
+        lblLODVal->setGeometry(QRect(10, 150, 431, 20));
+        lblLODVal->setFont(font4);
+        lblLODVal->setAlignment(Qt::AlignCenter);
+        stack_settings->addWidget(Page_Settings_TweaksATI);
+        Page_Settings_Benchmark = new QWidget();
+        Page_Settings_Benchmark->setObjectName(QStringLiteral("Page_Settings_Benchmark"));
+        cbHideError = new QComboBox(Page_Settings_Benchmark);
         cbHideError->setObjectName(QStringLiteral("cbHideError"));
-        cbHideError->setGeometry(QRect(180, 120, 111, 22));
-        lblOSD_2 = new QLabel(gbAppsets);
+        cbHideError->setGeometry(QRect(240, 100, 191, 22));
+        lblOSD_2 = new QLabel(Page_Settings_Benchmark);
         lblOSD_2->setObjectName(QStringLiteral("lblOSD_2"));
-        lblOSD_2->setGeometry(QRect(10, 120, 151, 16));
-        lblOSD_2->setFont(font5);
-        groupBox = new QGroupBox(tab_2);
-        groupBox->setObjectName(QStringLiteral("groupBox"));
-        groupBox->setGeometry(QRect(320, 260, 281, 161));
-        cbSIenabled = new QComboBox(groupBox);
-        cbSIenabled->setObjectName(QStringLiteral("cbSIenabled"));
-        cbSIenabled->setGeometry(QRect(130, 30, 141, 22));
-        lblSysInfo = new QLabel(groupBox);
-        lblSysInfo->setObjectName(QStringLiteral("lblSysInfo"));
-        lblSysInfo->setGeometry(QRect(10, 30, 111, 16));
-        lblSysInfo->setFont(font5);
-        cbTheme = new QComboBox(groupBox);
-        cbTheme->setObjectName(QStringLiteral("cbTheme"));
-        cbTheme->setGeometry(QRect(130, 60, 141, 22));
-        lblSysInfo_2 = new QLabel(groupBox);
-        lblSysInfo_2->setObjectName(QStringLiteral("lblSysInfo_2"));
-        lblSysInfo_2->setGeometry(QRect(10, 60, 111, 16));
-        lblSysInfo_2->setFont(font5);
-        cbScreenshotFormat = new QComboBox(groupBox);
-        cbScreenshotFormat->setObjectName(QStringLiteral("cbScreenshotFormat"));
-        cbScreenshotFormat->setGeometry(QRect(130, 90, 141, 22));
-        lblSysInfo_3 = new QLabel(groupBox);
-        lblSysInfo_3->setObjectName(QStringLiteral("lblSysInfo_3"));
-        lblSysInfo_3->setGeometry(QRect(10, 90, 111, 16));
-        lblSysInfo_3->setFont(font5);
-        slider_SSQuality = new QSlider(groupBox);
+        lblOSD_2->setGeometry(QRect(10, 100, 151, 16));
+        lblOSD_2->setFont(font4);
+        lblHideLogo = new QLabel(Page_Settings_Benchmark);
+        lblHideLogo->setObjectName(QStringLiteral("lblHideLogo"));
+        lblHideLogo->setGeometry(QRect(10, 40, 161, 16));
+        lblHideLogo->setFont(font4);
+        cbRunMode = new QComboBox(Page_Settings_Benchmark);
+        cbRunMode->setObjectName(QStringLiteral("cbRunMode"));
+        cbRunMode->setGeometry(QRect(240, 10, 191, 22));
+        lblOSD = new QLabel(Page_Settings_Benchmark);
+        lblOSD->setObjectName(QStringLiteral("lblOSD"));
+        lblOSD->setGeometry(QRect(10, 70, 161, 16));
+        lblOSD->setFont(font4);
+        lblRunMode = new QLabel(Page_Settings_Benchmark);
+        lblRunMode->setObjectName(QStringLiteral("lblRunMode"));
+        lblRunMode->setGeometry(QRect(10, 10, 161, 16));
+        lblRunMode->setFont(font1);
+        cbOSD = new QComboBox(Page_Settings_Benchmark);
+        cbOSD->setObjectName(QStringLiteral("cbOSD"));
+        cbOSD->setGeometry(QRect(240, 70, 191, 22));
+        cbHideLogo = new QComboBox(Page_Settings_Benchmark);
+        cbHideLogo->setObjectName(QStringLiteral("cbHideLogo"));
+        cbHideLogo->setGeometry(QRect(240, 40, 191, 22));
+        stack_settings->addWidget(Page_Settings_Benchmark);
+        Page_Settings_Interface = new QWidget();
+        Page_Settings_Interface->setObjectName(QStringLiteral("Page_Settings_Interface"));
+        slider_SSQuality = new QSlider(Page_Settings_Interface);
         slider_SSQuality->setObjectName(QStringLiteral("slider_SSQuality"));
-        slider_SSQuality->setGeometry(QRect(130, 120, 141, 22));
+        slider_SSQuality->setGeometry(QRect(240, 70, 191, 22));
         slider_SSQuality->setMinimum(0);
         slider_SSQuality->setMaximum(100);
         slider_SSQuality->setValue(50);
         slider_SSQuality->setSliderPosition(50);
         slider_SSQuality->setOrientation(Qt::Horizontal);
         slider_SSQuality->setTickPosition(QSlider::TicksBelow);
-        lblSysInfo_4 = new QLabel(groupBox);
+        lblSysInfo_2 = new QLabel(Page_Settings_Interface);
+        lblSysInfo_2->setObjectName(QStringLiteral("lblSysInfo_2"));
+        lblSysInfo_2->setGeometry(QRect(10, 10, 201, 16));
+        lblSysInfo_2->setFont(font4);
+        cbTheme = new QComboBox(Page_Settings_Interface);
+        cbTheme->setObjectName(QStringLiteral("cbTheme"));
+        cbTheme->setGeometry(QRect(240, 10, 191, 22));
+        lblSysInfo_3 = new QLabel(Page_Settings_Interface);
+        lblSysInfo_3->setObjectName(QStringLiteral("lblSysInfo_3"));
+        lblSysInfo_3->setGeometry(QRect(10, 40, 211, 16));
+        lblSysInfo_3->setFont(font4);
+        cbScreenshotFormat = new QComboBox(Page_Settings_Interface);
+        cbScreenshotFormat->setObjectName(QStringLiteral("cbScreenshotFormat"));
+        cbScreenshotFormat->setGeometry(QRect(240, 40, 191, 22));
+        lblSysInfo_4 = new QLabel(Page_Settings_Interface);
         lblSysInfo_4->setObjectName(QStringLiteral("lblSysInfo_4"));
-        lblSysInfo_4->setGeometry(QRect(50, 120, 71, 16));
-        lblSysInfo_4->setFont(font5);
+        lblSysInfo_4->setGeometry(QRect(10, 70, 201, 16));
+        lblSysInfo_4->setFont(font4);
+        stack_settings->addWidget(Page_Settings_Interface);
+        Page_Settings_Plugins_SI = new QWidget();
+        Page_Settings_Plugins_SI->setObjectName(QStringLiteral("Page_Settings_Plugins_SI"));
+        cbSIenabled = new QComboBox(Page_Settings_Plugins_SI);
+        cbSIenabled->setObjectName(QStringLiteral("cbSIenabled"));
+        cbSIenabled->setGeometry(QRect(240, 10, 191, 22));
+        lblSysInfo = new QLabel(Page_Settings_Plugins_SI);
+        lblSysInfo->setObjectName(QStringLiteral("lblSysInfo"));
+        lblSysInfo->setGeometry(QRect(10, 10, 111, 16));
+        lblSysInfo->setFont(font4);
+        stack_settings->addWidget(Page_Settings_Plugins_SI);
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
@@ -903,11 +931,11 @@ public:
         lblHideLogo_2 = new QLabel(tab_6);
         lblHideLogo_2->setObjectName(QStringLiteral("lblHideLogo_2"));
         lblHideLogo_2->setGeometry(QRect(10, 10, 151, 16));
-        lblHideLogo_2->setFont(font5);
+        lblHideLogo_2->setFont(font4);
         lblHideLogo_3 = new QLabel(tab_6);
         lblHideLogo_3->setObjectName(QStringLiteral("lblHideLogo_3"));
         lblHideLogo_3->setGeometry(QRect(240, 10, 151, 16));
-        lblHideLogo_3->setFont(font5);
+        lblHideLogo_3->setFont(font4);
         comboBox_2 = new QComboBox(tab_6);
         comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
         comboBox_2->setGeometry(QRect(240, 30, 221, 21));
@@ -915,7 +943,7 @@ public:
         lblHideLogo_4 = new QLabel(tab_6);
         lblHideLogo_4->setObjectName(QStringLiteral("lblHideLogo_4"));
         lblHideLogo_4->setGeometry(QRect(470, 10, 61, 16));
-        lblHideLogo_4->setFont(font5);
+        lblHideLogo_4->setFont(font4);
         spinBox = new QSpinBox(tab_6);
         spinBox->setObjectName(QStringLiteral("spinBox"));
         spinBox->setGeometry(QRect(470, 30, 81, 22));
@@ -929,7 +957,7 @@ public:
         toolBox->setGeometry(QRect(10, 10, 591, 421));
         page = new QWidget();
         page->setObjectName(QStringLiteral("page"));
-        page->setGeometry(QRect(0, 0, 591, 365));
+        page->setGeometry(QRect(0, 0, 100, 30));
         table_AboutModules = new QTableWidget(page);
         if (table_AboutModules->columnCount() < 3)
             table_AboutModules->setColumnCount(3);
@@ -1025,11 +1053,11 @@ public:
         textEdit_2 = new QTextEdit(page_2);
         textEdit_2->setObjectName(QStringLiteral("textEdit_2"));
         textEdit_2->setGeometry(QRect(0, 0, 591, 351));
-        QFont font7;
-        font7.setFamily(QStringLiteral("Courier New"));
-        font7.setBold(false);
-        font7.setWeight(50);
-        textEdit_2->setFont(font7);
+        QFont font5;
+        font5.setFamily(QStringLiteral("Courier New"));
+        font5.setBold(false);
+        font5.setWeight(50);
+        textEdit_2->setFont(font5);
         textEdit_2->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         textEdit_2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         textEdit_2->setLineWrapMode(QTextEdit::NoWrap);
@@ -1039,28 +1067,28 @@ public:
         btnStart = new QPushButton(centralwidget);
         btnStart->setObjectName(QStringLiteral("btnStart"));
         btnStart->setGeometry(QRect(510, 480, 121, 31));
-        QFont font8;
-        font8.setBold(true);
-        font8.setWeight(75);
-        btnStart->setFont(font8);
+        QFont font6;
+        font6.setBold(true);
+        font6.setWeight(75);
+        btnStart->setFont(font6);
         btnStart->setDefault(true);
         btnSave = new QPushButton(centralwidget);
         btnSave->setObjectName(QStringLiteral("btnSave"));
         btnSave->setEnabled(true);
         btnSave->setGeometry(QRect(360, 480, 141, 31));
-        QFont font9;
-        font9.setBold(false);
-        font9.setWeight(50);
-        btnSave->setFont(font9);
+        QFont font7;
+        font7.setBold(false);
+        font7.setWeight(50);
+        btnSave->setFont(font7);
         lblHash = new QLabel(centralwidget);
         lblHash->setObjectName(QStringLiteral("lblHash"));
         lblHash->setGeometry(QRect(20, 480, 151, 16));
-        QFont font10;
-        font10.setPointSize(10);
-        font10.setBold(false);
-        font10.setItalic(true);
-        font10.setWeight(50);
-        lblHash->setFont(font10);
+        QFont font8;
+        font8.setPointSize(10);
+        font8.setBold(false);
+        font8.setItalic(true);
+        font8.setWeight(50);
+        lblHash->setFont(font8);
         frmMain->setCentralWidget(centralwidget);
         menuBar = new QMenuBar(frmMain);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -1096,9 +1124,10 @@ public:
 
         tabWidget->setCurrentIndex(1);
         stackedWidget->setCurrentIndex(0);
+        stack_settings->setCurrentIndex(5);
         stacked_CompareOnline->setCurrentIndex(1);
         tab_CompareOnline->setCurrentIndex(0);
-        toolBox->setCurrentIndex(0);
+        toolBox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(frmMain);
@@ -1164,35 +1193,36 @@ public:
         lblScore_C7->setText(QApplication::translate("frmMain", "-", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("frmMain", "Score", 0));
         tabWidget->setTabToolTip(tabWidget->indexOf(tab), QApplication::translate("frmMain", "Your results will be displayed here.", 0));
-        gbAffinity->setTitle(QApplication::translate("frmMain", "Performance Settings", 0));
-        cbProcessPrio->clear();
-        cbProcessPrio->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "Idle", 0)
-         << QApplication::translate("frmMain", "Below Normal", 0)
-         << QApplication::translate("frmMain", "Normal", 0)
-         << QApplication::translate("frmMain", "Above Normal", 0)
-         << QApplication::translate("frmMain", "High", 0)
-         << QApplication::translate("frmMain", "Realtime", 0)
-        );
-#ifndef QT_NO_TOOLTIP
-        cbProcessPrio->setToolTip(QApplication::translate("frmMain", "Use 'High' for a higher score.", 0));
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        cbProcessPrio->setWhatsThis(QString());
-#endif // QT_NO_WHATSTHIS
-        cbProcessPrio->setCurrentText(QApplication::translate("frmMain", "Idle", 0));
-#ifndef QT_NO_WHATSTHIS
-        lblProcessPrio->setWhatsThis(QApplication::translate("frmMain", "How many resources the OS will allocate for the application.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblProcessPrio->setText(QApplication::translate("frmMain", "Process Priority", 0));
-#ifndef QT_NO_WHATSTHIS
-        lblLODVal->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblLODVal->setText(QApplication::translate("frmMain", "------", 0));
-#ifndef QT_NO_WHATSTHIS
-        lblLOD->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblLOD->setText(QApplication::translate("frmMain", "Level of Detail*", 0));
+        QTreeWidgetItem *___qtreewidgetitem = treeWidget->headerItem();
+        ___qtreewidgetitem->setText(0, QApplication::translate("frmMain", "Settings", 0));
+
+        const bool __sortingEnabled = treeWidget->isSortingEnabled();
+        treeWidget->setSortingEnabled(false);
+        QTreeWidgetItem *___qtreewidgetitem1 = treeWidget->topLevelItem(0);
+        ___qtreewidgetitem1->setText(0, QApplication::translate("frmMain", "Tweaks", 0));
+        QTreeWidgetItem *___qtreewidgetitem2 = ___qtreewidgetitem1->child(0);
+        ___qtreewidgetitem2->setText(0, QApplication::translate("frmMain", "Processor", 0));
+        QTreeWidgetItem *___qtreewidgetitem3 = ___qtreewidgetitem1->child(1);
+        ___qtreewidgetitem3->setText(0, QApplication::translate("frmMain", "Video Card", 0));
+        QTreeWidgetItem *___qtreewidgetitem4 = ___qtreewidgetitem3->child(0);
+        ___qtreewidgetitem4->setText(0, QApplication::translate("frmMain", "ATi / AMD", 0));
+        QTreeWidgetItem *___qtreewidgetitem5 = ___qtreewidgetitem3->child(1);
+        ___qtreewidgetitem5->setText(0, QApplication::translate("frmMain", "NVIDIA", 0));
+        QTreeWidgetItem *___qtreewidgetitem6 = ___qtreewidgetitem3->child(2);
+        ___qtreewidgetitem6->setText(0, QApplication::translate("frmMain", "Intel", 0));
+        QTreeWidgetItem *___qtreewidgetitem7 = treeWidget->topLevelItem(1);
+        ___qtreewidgetitem7->setText(0, QApplication::translate("frmMain", "Score", 0));
+        QTreeWidgetItem *___qtreewidgetitem8 = treeWidget->topLevelItem(2);
+        ___qtreewidgetitem8->setText(0, QApplication::translate("frmMain", "Benchmark", 0));
+        QTreeWidgetItem *___qtreewidgetitem9 = treeWidget->topLevelItem(3);
+        ___qtreewidgetitem9->setText(0, QApplication::translate("frmMain", "Interface", 0));
+        QTreeWidgetItem *___qtreewidgetitem10 = treeWidget->topLevelItem(4);
+        ___qtreewidgetitem10->setText(0, QApplication::translate("frmMain", "Plugins", 0));
+        QTreeWidgetItem *___qtreewidgetitem11 = ___qtreewidgetitem10->child(0);
+        ___qtreewidgetitem11->setText(0, QApplication::translate("frmMain", "System Info", 0));
+        treeWidget->setSortingEnabled(__sortingEnabled);
+
+        gbCores->setTitle(QApplication::translate("frmMain", "Core Affinity", 0));
         ckbCore01->setText(QApplication::translate("frmMain", "1", 0));
         ckbCore02->setText(QApplication::translate("frmMain", "2", 0));
         ckbCore03->setText(QApplication::translate("frmMain", "3", 0));
@@ -1257,56 +1287,34 @@ public:
         ckbCore62->setText(QApplication::translate("frmMain", "62", 0));
         ckbCore63->setText(QApplication::translate("frmMain", "63", 0));
         ckbCore64->setText(QApplication::translate("frmMain", "64", 0));
-#ifndef QT_NO_WHATSTHIS
-        lblLOD_2->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblLOD_2->setText(QApplication::translate("frmMain", "*ATI/AMD only", 0));
-        gbAppsets->setTitle(QApplication::translate("frmMain", "Benchmark Settings", 0));
-#ifndef QT_NO_WHATSTHIS
-        lblHideLogo->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblHideLogo->setText(QApplication::translate("frmMain", "Hide Logo", 0));
-        cbHideLogo->clear();
-        cbHideLogo->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "True", 0)
-         << QApplication::translate("frmMain", "False", 0)
+        cbProcessPrio->clear();
+        cbProcessPrio->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "Idle", 0)
+         << QApplication::translate("frmMain", "Below Normal", 0)
+         << QApplication::translate("frmMain", "Normal", 0)
+         << QApplication::translate("frmMain", "Above Normal", 0)
+         << QApplication::translate("frmMain", "High", 0)
+         << QApplication::translate("frmMain", "Realtime", 0)
         );
 #ifndef QT_NO_TOOLTIP
-        cbHideLogo->setToolTip(QString());
+        cbProcessPrio->setToolTip(QApplication::translate("frmMain", "Use 'High' for a higher score.", 0));
 #endif // QT_NO_TOOLTIP
 #ifndef QT_NO_WHATSTHIS
-        cbHideLogo->setWhatsThis(QString());
+        cbProcessPrio->setWhatsThis(QString());
 #endif // QT_NO_WHATSTHIS
+        cbProcessPrio->setCurrentText(QApplication::translate("frmMain", "Idle", 0));
 #ifndef QT_NO_WHATSTHIS
-        lblRunMode->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+        lblProcessPrio->setWhatsThis(QApplication::translate("frmMain", "How many resources the OS will allocate for the application.", 0));
 #endif // QT_NO_WHATSTHIS
-        lblRunMode->setText(QApplication::translate("frmMain", "Run Mode", 0));
-        cbRunMode->clear();
-        cbRunMode->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "AUTO", 0)
-         << QApplication::translate("frmMain", "MANUAL", 0)
-        );
-#ifndef QT_NO_TOOLTIP
-        cbRunMode->setToolTip(QString());
-#endif // QT_NO_TOOLTIP
+        lblProcessPrio->setText(QApplication::translate("frmMain", "Process Priority", 0));
 #ifndef QT_NO_WHATSTHIS
-        cbRunMode->setWhatsThis(QString());
+        lblLOD->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
 #endif // QT_NO_WHATSTHIS
+        lblLOD->setText(QApplication::translate("frmMain", "Level of Detail", 0));
 #ifndef QT_NO_WHATSTHIS
-        lblOSD->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+        lblLODVal->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
 #endif // QT_NO_WHATSTHIS
-        lblOSD->setText(QApplication::translate("frmMain", "OSD Statistics", 0));
-        cbOSD->clear();
-        cbOSD->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "True", 0)
-         << QApplication::translate("frmMain", "False", 0)
-        );
-#ifndef QT_NO_TOOLTIP
-        cbOSD->setToolTip(QString());
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        cbOSD->setWhatsThis(QString());
-#endif // QT_NO_WHATSTHIS
+        lblLODVal->setText(QApplication::translate("frmMain", "------", 0));
         cbHideError->clear();
         cbHideError->insertItems(0, QStringList()
          << QApplication::translate("frmMain", "True", 0)
@@ -1325,7 +1333,97 @@ public:
         lblOSD_2->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
 #endif // QT_NO_WHATSTHIS
         lblOSD_2->setText(QApplication::translate("frmMain", "Hide Reset Error", 0));
-        groupBox->setTitle(QApplication::translate("frmMain", "Wrapper Settings", 0));
+#ifndef QT_NO_WHATSTHIS
+        lblHideLogo->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblHideLogo->setText(QApplication::translate("frmMain", "Hide Logo", 0));
+        cbRunMode->clear();
+        cbRunMode->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "AUTO", 0)
+         << QApplication::translate("frmMain", "MANUAL", 0)
+        );
+#ifndef QT_NO_TOOLTIP
+        cbRunMode->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        cbRunMode->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_WHATSTHIS
+        lblOSD->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblOSD->setText(QApplication::translate("frmMain", "OSD Statistics", 0));
+#ifndef QT_NO_WHATSTHIS
+        lblRunMode->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblRunMode->setText(QApplication::translate("frmMain", "Run Mode", 0));
+        cbOSD->clear();
+        cbOSD->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "True", 0)
+         << QApplication::translate("frmMain", "False", 0)
+        );
+#ifndef QT_NO_TOOLTIP
+        cbOSD->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        cbOSD->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+        cbHideLogo->clear();
+        cbHideLogo->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "True", 0)
+         << QApplication::translate("frmMain", "False", 0)
+        );
+#ifndef QT_NO_TOOLTIP
+        cbHideLogo->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        cbHideLogo->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_TOOLTIP
+        lblSysInfo_2->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        lblSysInfo_2->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblSysInfo_2->setText(QApplication::translate("frmMain", "Theme", 0));
+        cbTheme->clear();
+        cbTheme->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "Windows", 0)
+         << QApplication::translate("frmMain", "WindowsXP", 0)
+         << QApplication::translate("frmMain", "WindowsVista", 0)
+         << QApplication::translate("frmMain", "Fusion", 0)
+         << QApplication::translate("frmMain", "Fusion (Dark)", 0)
+        );
+#ifndef QT_NO_TOOLTIP
+        cbTheme->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        cbTheme->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_TOOLTIP
+        lblSysInfo_3->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        lblSysInfo_3->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblSysInfo_3->setText(QApplication::translate("frmMain", "Screenshot Format", 0));
+        cbScreenshotFormat->clear();
+        cbScreenshotFormat->insertItems(0, QStringList()
+         << QApplication::translate("frmMain", "PNG", 0)
+         << QApplication::translate("frmMain", "JPG", 0)
+        );
+#ifndef QT_NO_TOOLTIP
+        cbScreenshotFormat->setToolTip(QString());
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        cbScreenshotFormat->setWhatsThis(QString());
+#endif // QT_NO_WHATSTHIS
+#ifndef QT_NO_TOOLTIP
+        lblSysInfo_4->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        lblSysInfo_4->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
+#endif // QT_NO_WHATSTHIS
+        lblSysInfo_4->setText(QApplication::translate("frmMain", "Screenshot Quality", 0));
         cbSIenabled->clear();
         cbSIenabled->insertItems(0, QStringList()
          << QApplication::translate("frmMain", "Enabled", 0)
@@ -1344,52 +1442,6 @@ public:
         lblSysInfo->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
 #endif // QT_NO_WHATSTHIS
         lblSysInfo->setText(QApplication::translate("frmMain", "System Info", 0));
-        cbTheme->clear();
-        cbTheme->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "Windows", 0)
-         << QApplication::translate("frmMain", "WindowsXP", 0)
-         << QApplication::translate("frmMain", "WindowsVista", 0)
-         << QApplication::translate("frmMain", "Fusion", 0)
-         << QApplication::translate("frmMain", "Fusion (Dark)", 0)
-        );
-#ifndef QT_NO_TOOLTIP
-        cbTheme->setToolTip(QString());
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        cbTheme->setWhatsThis(QString());
-#endif // QT_NO_WHATSTHIS
-#ifndef QT_NO_TOOLTIP
-        lblSysInfo_2->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        lblSysInfo_2->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblSysInfo_2->setText(QApplication::translate("frmMain", "Theme", 0));
-        cbScreenshotFormat->clear();
-        cbScreenshotFormat->insertItems(0, QStringList()
-         << QApplication::translate("frmMain", "PNG", 0)
-         << QApplication::translate("frmMain", "JPG", 0)
-        );
-#ifndef QT_NO_TOOLTIP
-        cbScreenshotFormat->setToolTip(QString());
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        cbScreenshotFormat->setWhatsThis(QString());
-#endif // QT_NO_WHATSTHIS
-#ifndef QT_NO_TOOLTIP
-        lblSysInfo_3->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        lblSysInfo_3->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblSysInfo_3->setText(QApplication::translate("frmMain", "Screenshot", 0));
-#ifndef QT_NO_TOOLTIP
-        lblSysInfo_4->setToolTip(QApplication::translate("frmMain", "If set to TRUE it will no longer ask the user if he wants to reset settings after a session that was closed prematurely.", 0));
-#endif // QT_NO_TOOLTIP
-#ifndef QT_NO_WHATSTHIS
-        lblSysInfo_4->setWhatsThis(QApplication::translate("frmMain", "Use Manual if you experience problems with old cards or IGP.", 0));
-#endif // QT_NO_WHATSTHIS
-        lblSysInfo_4->setText(QApplication::translate("frmMain", "Quality", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("frmMain", "Settings", 0));
         tabWidget->setTabToolTip(tabWidget->indexOf(tab_2), QApplication::translate("frmMain", "Faaasterr!", 0));
         lblGfxScore_3->setText(QApplication::translate("frmMain", "You are not connected to the Internet or\n"
@@ -1449,7 +1501,7 @@ public:
         QTableWidgetItem *___qtablewidgetitem18 = table_AboutModules->verticalHeaderItem(7);
         ___qtablewidgetitem18->setText(QApplication::translate("frmMain", "8", 0));
 
-        const bool __sortingEnabled = table_AboutModules->isSortingEnabled();
+        const bool __sortingEnabled1 = table_AboutModules->isSortingEnabled();
         table_AboutModules->setSortingEnabled(false);
         QTableWidgetItem *___qtablewidgetitem19 = table_AboutModules->item(0, 0);
         ___qtablewidgetitem19->setText(QApplication::translate("frmMain", "Wrapper", 0));
@@ -1499,270 +1551,277 @@ public:
         ___qtablewidgetitem41->setText(QApplication::translate("frmMain", "-", 0));
         QTableWidgetItem *___qtablewidgetitem42 = table_AboutModules->item(7, 2);
         ___qtablewidgetitem42->setText(QApplication::translate("frmMain", "QuantumCD", 0));
-        table_AboutModules->setSortingEnabled(__sortingEnabled);
+        table_AboutModules->setSortingEnabled(__sortingEnabled1);
 
         toolBox->setItemText(toolBox->indexOf(page), QApplication::translate("frmMain", "About", 0));
         textEdit_2->setHtml(QApplication::translate("frmMain", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:'Courier New'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.56.111</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.11, with the following changes:</span></p>\n"
+"<p style=\" ma"
+                        "rgin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--HD5750 is no longer detected as HD6750</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers:</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.55.110</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] A copy of the screenshot integrated into scorefile is stored in installation folder.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-"
-                        "size:8pt;\">[FIX] Crash when opening 'Compare Online' without Internet connection.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell"
+                        " Dlg 2'; font-size:8pt;\">[NEW] A copy of the screenshot integrated into scorefile is stored in installation folder.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Crash when opening 'Compare Online' without Internet connection.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Default screenshot format is PNG 50% as JPG is not working under Windows XP.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Increased range of screenshot quality from 30-100 to 0-100.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.10, with the following changes:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-inden"
-                        "t:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat 13.12 WHQL/WU</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0p"
+                        "x; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.10, with the following changes:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat 13.12 WHQL/WU</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.54.109</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Log files were not written to disk.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-si"
+                        "ze:8pt;\">[FIX] Log files were not written to disk.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added support for Window Themes.</span></p>\n"
-""
-                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added 'Compare Online' feature.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added 'Compare Online' feature.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added settings for Screenshot format (PNG/JPG) and quality (30 to 100), to prevent huge scorefiles.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] GUI adjusments for 125% DPI.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\""
+                        ">[UPD] GUI adjusments for 125% DPI.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Qt Framework updated from 5.1.1 to 5.2.</span></p>\n"
-"<p style"
-                        "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Settings are saved each time they are changed rather than waiting to press START.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Settings are saved each time they are changed rather than waiting to press START.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.09, with the following changes:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Added detection for AVEXIR Core 2400, Team Xtreme Vulcan 1600</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New GPUs: GMA X4500, GMA 4500M"
-                        "HD, GMA 4500, GMA 500 Mobile, GMA 900 Mobile, GMA 900, MARS II</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-siz"
+                        "e:8pt;\">--Added detection for AVEXIR Core 2400, Team Xtreme Vulcan 1600</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New GPUs: GMA X4500, GMA 4500MHD, GMA 4500, GMA 500 Mobile, GMA 900 Mobile, GMA 900, MARS II</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Updated GPU-Z to v0.7.5</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.53.108</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.53.108</span"
+                        "></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Menus 'Forums' and 'Clear Aq3 Logs' now work.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0"
-                        "px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Minor GUI changes and fixes.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Minor GUI changes and fixes.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Separated benchmark specific code from GUI code and further optimized for speed and memory usage.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Certains brands are renamed when saving the scorefile to match with HWBOT's database.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.08, with the followi"
-                        "ng changes:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Certains brands are renamed when saving t"
+                        "he scorefile to match with HWBOT's database.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.08, with the following changes:</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Improved detection of RAM Vendor &amp; P/N</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat13.11 WHQ/Beta9.4/Beta9.5</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New GPUs: MSI 7970 Reference / TwinFrozrIII / Lightning</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New GPUs: MSI 7970 Refere"
+                        "nce / TwinFrozrIII / Lightning</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Improved CPU Socket detection</span></p>\n"
-"<p style=\" margin-top:0px;"
-                        " margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New SKUs: Toshiba Satellite P755-11T, HP Envy 6-1076ez</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Renamed </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">CardExpert Technology</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\"> to</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\"> Gainward</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">, </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">BFT Tech </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\""
-                        ">to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">BFG</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">, </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">Palit Microsystems </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">Palit</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New SKUs: Toshiba Satellite P755-11T, HP Envy 6-1076ez</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Renamed </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">CardExpert Technology</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\"> to</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; colo"
+                        "r:#000000;\"> Gainward</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">, </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">BFT Tech </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">BFG</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">, </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">Palit Microsystems </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; color:#000000;\">to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic; color:#000000;\">Palit</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt; font"
+                        "-style:italic;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.52.107</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; "
-                        "margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] LOD did not work on all systems.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] LOD did not work on all systems.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Video Card icon did not display properly..</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Windows XP '0 score' and AUTO mode.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Changed the installar from AHK to NSIS in order to avoid false positives from AV software.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin"
-                        "-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added menus.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px"
+                        "; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Changed the installar from AHK to NSIS in order to avoid false positives from AV software.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added menus.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Added shortcuts: F7 (Save to Desktop) and Ctrl+S (Start Benchmark).</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Additional security checks (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">BarboNet</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">"
-                        "[UPD] Code cleanup and optimizing.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Additional security checks (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:"
+                        "8pt; font-style:italic;\">BarboNet</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Code cleanup and optimizing.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.07, with the following changes:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Sony Corporation</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> is renamed to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">SONY</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">--</span><span style=\""
-                        " font-family:'MS Shell Dlg 2'; font-size:8pt;\">Empty RAM slots are skipped when reading RAM P/N, Cfg Speed, Rated Speed</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Sony Corporation</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> is renamed to </span><span style=\" font-fa"
+                        "mily:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">SONY</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">Empty RAM slots are skipped when reading RAM P/N, Cfg Speed, Rated Speed</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Improved RAM Vendor codes list</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">EDO DIMM </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">was renamed to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">EDO</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font"
-                        "-style:italic;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">OS ServicePack detection routine disabled on W8/8.1</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">EDO DIMM </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">was"
+                        " renamed to </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">EDO</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">OS ServicePack detection routine disabled on W8/8.1</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">--</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">Some strings will be trimmed under VMWare Player and VirtualPC/XPMode</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New video cards: HD5970</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; "
-                        "-qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">KNOWN ISSUES</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*Startup is slowed down by dxdiag.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*WinXP: benchmark doesn't go full screen and is </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Not Responding </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">if a Windows Explorer window is opened.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*WinXP: GFX driver det"
-                        "ection fails</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.51.106</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Missing dll libraries missing from installer package.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Some icons were not displayed on NVIDIA systems.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-le"
-                        "ft:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Registry setting</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\"> background</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> did not work properly.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Default background 'circuits' was removed to keep a cleaner look and smaller exe size.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] If </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">LODAdj </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> is not found, it will"
-                        " assume it is not an ATI/AMD card.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.06, with the following changes:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Code cleanup and fixing that prevented the application from running on some systems where expected information was missing.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Empty RAM slots are skipped when reading Vendor name.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span "
-                        "style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection mechanism of NVIDIA Display INF file changed</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New BIOS Vendors: Phoenix, Award, InsydeH2O</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection of DirectX version</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection of GFX used output ports (VGA/DVI/HDMI etc.)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; fon"
-                        "t-size:8pt;\">--New Drivers: Cat13.11 B9.2</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Completed Radeon R9 series.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New video cards: HD5970"
+                        "</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">KNOWN ISSUES</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*Startup is slowed down by dxdiag.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; "
-                        "margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*WinXP: benchmark doesn't go full screen and is </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Not Responding </span><span style=\" fon"
+                        "t-family:'MS Shell Dlg 2'; font-size:8pt;\">if a Windows Explorer window is opened.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*WinXP: GFX driver detection fails</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.51.106</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Missing dll libraries missing from installer package.</span></p>\n"
+"<p st"
+                        "yle=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Some icons were not displayed on NVIDIA systems.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Registry setting</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\"> background</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> did not work properly.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Default background 'circuits' was removed to keep a cleaner look and smaller exe size.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-rig"
+                        "ht:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] If </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">LODAdj </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> is not found, it will assume it is not an ATI/AMD card.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.06, with the following changes:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Code cleanup and fixing that prevented the application from running on some systems where expected information was missing.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:"
+                        "0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Empty RAM slots are skipped when reading Vendor name.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection mechanism of NVIDIA Display INF file changed</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New BIOS Vendors: Phoenix, Award, InsydeH2O</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection of DirectX version</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\""
+                        "><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection of GFX used output ports (VGA/DVI/HDMI etc.)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat13.11 B9.2</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Completed Radeon R9 series.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">KNOWN ISSUES</span></p>\n"
+"<p style=\" margin"
+                        "-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">*Startup is slowed down by dxdiag.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.50.105</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] Complete rewrite in Qt5/C++</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[NEW] 'About' page with proper credits and a changelog.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Settings "
-                        "now include a couple more features that were previously unavailable or not user changeable.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:"
+                        "'MS Shell Dlg 2'; font-size:8pt;\">[NEW] 'About' page with proper credits and a changelog.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Settings now include a couple more features that were previously unavailable or not user changeable.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.05, with the following changes:</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Got rid of WMI dependency</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Ram Information: vendor, module count, rated/configured speeds, p/n, total capacity, maximum capacity</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\""
-                        "><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Processor Information: vendor, name, family, freq, bus, count, active threads, socket/package, max freq</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"
+                        "\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Ram Information: vendor, module count, rated/configured speeds, p/n, total capacity, maximum capacity</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Processor Information: vendor, name, family, freq, bus, count, active threads, socket/package, max freq</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Bios Information: version, revision, build date, firmware revision, vendor</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Motherboard Informaion: vendor, name (based on sku for notebooks), revision, s/n, socket count</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Motherboard Informaion: vendor, name (based on sku for notebooks), revision, "
+                        "s/n, socket count</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Hewlett-Packard Portable SKUs countrification</span></p>\n"
-"<p style=\" margin-top:0p"
-                        "x; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New SKUs: HP Folio 13-1050ez, HP ProBook 430 G1, HP Spectre XP Pro (various), HP ProBook 4340s, HP ProBook 4740s (various), HP Envy d7 (various), HP Envy 17 (various), HP EliteBook 8770 (various)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New SKUs: HP Folio 13-1050ez, HP ProBook 430 G1, HP Spectre XP Pro (various), HP ProBook 4340s, HP ProBook 4740s (various), HP Envy d7 (various), HP Envy 17 (various), HP EliteBook 8770 (various)</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New CPUs: QX9770, i7 995X, i7 ###QM, FX-9590 ES</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New RAM vendors: Walton Chaintech, Ramaxel, G.Skill, KINGMAX, Princeton, GeIL, Nanya, Crucial, Patriot, Qimonda, Swissbit, Corsair, Elpida, TeamGroup, OCZ, A-DATA, Kingston, Itec Memory, WINTEC, Super PC Memory, GoldenRAM"
-                        ", DATARAM, Smart Modular, Transcend, Micron, Mosel Vitelic, Samsung, Infineon, NEC, AMD, Xerox, Apple, HP, SK Hynix, Mushkin, ASint, Winbond.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; "
+                        "text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New RAM vendors: Walton Chaintech, Ramaxel, G.Skill, KINGMAX, Princeton, GeIL, Nanya, Crucial, Patriot, Qimonda, Swissbit, Corsair, Elpida, TeamGroup, OCZ, A-DATA, Kingston, Itec Memory, WINTEC, Super PC Memory, GoldenRAM, DATARAM, Smart Modular, Transcend, Micron, Mosel Vitelic, Samsung, Infineon, NEC, AMD, Xerox, Apple, HP, SK Hynix, Mushkin, ASint, Winbond.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New GPUs: Radeon R7 Series, Radeon R9 Series</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat13.2/13.3 BETA detection fix, Cat13.9 WHQL, Cat13.10 B2, Cat13.11 B1/3/6/7, All NVIDIA drivers (generic), couple Intel GMA/HD/Iris from branches 6/8/9.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--New Drivers: Cat13.2/13.3 BETA detection fix, Cat13.9 WHQL, Cat13.10 B2, Cat13.11 B1/3/6/7, All NVIDIA drivers (generic), couple Intel"
+                        " GMA/HD/Iris from branches 6/8/9.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; ma"
-                        "rgin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.27.104</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.27.104</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Main GUI will no longer display CPU speed.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.04, with the following changes:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Code cleanup</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\""
-                        "><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection for Catalyst 13.10 BETA</span></p>\n"
+"<p style=\" margin-top:0px; m"
+                        "argin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Code cleanup</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Detection for Catalyst 13.10 BETA</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.27.103</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Temporarly removed detected CPU frequency from scorefile to avoid website parsing error.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;"
-                        "\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8"
+                        "pt;\">[FIX] Temporarly removed detected CPU frequency from scorefile to avoid website parsing error.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.26.102</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Application versioning will include smaller increments for SI library updates.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System Info Library updated to v1.02, with the following changes:</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] System "
+                        "Info Library updated to v1.02, with the following changes:</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Extensive Subvendor list for VGA</span></p>\n"
-""
-                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Can read VRAM quantity</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Can read VRAM quantity</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Added couple more ATI/AMD cards (mostly HD7/8 series)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Intel BIOS versions are shortened to display only relevant info</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Intel BIOS versions are shortened to display only releva"
+                        "nt info</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Fixed code errors that prevented race conditions to work</span></p>\n"
-"<p style=\" margin-top:0px;"
-                        " margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Can display ATI/AMD driver friendly name and differentiate BETA versions </span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">--Can display ATI/AMD driver friendly name and differentiate BETA versions </span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">   (GPU-Z can't tell if it's beta or WHQL) from 11.11 up to 13.8B2</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.26.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -"
-                        "qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Improved security.</span></p>\n"
+""
+                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.26.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Improved security.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Logo's alpha channel didn't work on older cards displaying a black background.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Save and Open CPUZ/GPUZ buttons will not be shown if benchmark was aborted.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Basic system info displayed into main window. (WMI service must be ON).</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px;"
-                        " margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] User can select benchmark settings between Manual and Auto. Use manual for old cards/IGP.</span></p>\n"
+"<p style=\" mar"
+                        "gin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Basic system info displayed into main window. (WMI service must be ON).</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] User can select benchmark settings between Manual and Auto. Use manual for old cards/IGP.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Multiple cores affinity (artificially limited up to 8 threads for now).</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Norwegian translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Maximous</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0"
-                        "; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] GUI Redesigned to allow more information and future skins.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Norwe"
+                        "gian translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Maximous</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] GUI Redesigned to allow more information and future skins.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Installer will let you install on 98/ME but there is no guarantee it will work.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Improved translations in RO/IT/FR (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Christian Ney</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dl"
-                        "g 2'; font-size:8pt;\">[REM] VC Redis will no longer be installed on 6.x systems as it's not needed.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Improved translations in RO/IT/FR (Thanks </span><span style=\" font-family:'MS Sh"
+                        "ell Dlg 2'; font-size:8pt; font-style:italic;\">Christian Ney</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] VC Redis will no longer be installed on 6.x systems as it's not needed.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Removed 'Submit online' button until it works better.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.25.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Score was not saved on some stri"
-                        "pped Windows XP systems.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" fo"
+                        "nt-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.25.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Score was not saved on some stripped Windows XP systems.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Error Exception if WMI is not enabled on your system.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Installer contains the VC++ 2008 v9.0 x86/x64 redis.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS She"
+                        "ll Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.24.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-botto"
-                        "m:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] You can now select 'All Cores' for process affinity.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] You can now select 'All Cores' for process affinity.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] F1 hotkey for a quick Debug Message.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] F7 hotkey for a quicksave on desktop. It will not check for CPUZ/GPUZ!</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] F7 hotkey for a quicksave on desktop. It will not check for CPUZ/GPUZ!<"
+                        "/span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Changed icon to original Aquamark green icon.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:"
-                        "0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Updated RO translation.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Updated RO translation.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Results are saved directly on desktop instead of 'Aquamark Results' folder.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.23.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span st"
-                        "yle=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Datafile was not saved if the videocard name contained illegal character (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">mtech</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Completed Persian/Farsi translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Olesius</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px;"
+                        " margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.23.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Datafile was not saved if the videocard name contained illegal character (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">mtech</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Completed Persian/Farsi translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Olesius</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)"
+                        "</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt"
-                        "-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.22.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.22.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Memory Tab was not opened in CPU-Z OC version. (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">topdog</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Partial Persian/Farsi translation. (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Olesius</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; ma"
-                        "rgin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Hover mouse icon for HWBOT logo.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS She"
+                        "ll Dlg 2'; font-size:8pt;\">[ADD] Partial Persian/Farsi translation. (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Olesius</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Hover mouse icon for HWBOT logo.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] TRISCORE is displayed using a bigger font size.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.21.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS She"
-                        "ll Dlg 2'; font-size:8pt;\">[FIX] Button 'STEP1' is not shown if benchmark was aborted using ESC key.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-r"
+                        "ight:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.21.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Button 'STEP1' is not shown if benchmark was aborted using ESC key.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Main GUI did not load after benchmark closed.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Removed the 'Check for updates' button because feature is not implemented yet.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; fon"
-                        "t-size:8pt; font-weight:600;\">2.20.000</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0"
+                        "px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.20.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Stuck in a loop when trying to detect CPUZ.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Uninstaller deletes registry keys left in Wow6432Node.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Pressing ESC during benchmark will quit instead of abort.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>"
-                        "\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shel"
+                        "l Dlg 2'; font-size:8pt;\">[ADD] Pressing ESC during benchmark will quit instead of abort.</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.19.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] STEP1 button no longer worked if there was an error in CPUZ detection.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] When manually browsing for GPUZ the filter is *.exe instead of gpuz.exe</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Spanish Translation (Thanks</span><span style=\" font-fa"
-                        "mily:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\"> Sweet</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] When manually browsing fo"
+                        "r GPUZ the filter is *.exe instead of gpuz.exe</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Spanish Translation (Thanks</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\"> Sweet</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Improved startup dialog.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Can detect custom CPUZ versions (ROG/G1/OC)</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weigh"
-                        "t:600;\">2.18.000</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; m"
+                        "argin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.18.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] On Windows 7 with Classic Theme applied the screen couldn't be captured for SS.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Duplicate score files are renamed instead of being overwritten.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] The main GUI no longer starts with its titlebar underneath Windows taskbar.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dl"
-                        "g 2'; font-size:8pt;\">[FIX] Smarter window arrangement.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style="
+                        "\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] The main GUI no longer starts with its titlebar underneath Windows taskbar.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Smarter window arrangement.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Minor GUI changes to improve i18n for both Wrapper and installer.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Wrapper will check if aquamark executable exists before trying to open it.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Exception Catch for the 'Submit' button and Logo click.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-fam"
-                        "ily:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Romanian translation updated.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-inden"
+                        "t:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Exception Catch for the 'Submit' button and Logo click.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Romanian translation updated.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Dutch translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Massman</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">)</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Will check for local CPU-Z/GPU-Z.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Will check for local CPU-Z/GPU-Z.</span></p"
+                        ">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] CPU-Z and GPU-Z are no longer bundled with the wrapper installer.</span></p>\n"
-"<p style=\" margin-top:0px; mar"
-                        "gin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] CPU-Z is no longer used to read CPU/RAM/Motherboard info due licensing issues.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] CPU-Z is no longer used to read CPU/RAM/Motherboard info due licensing issues.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[REM] Keyboard/Mouse input is no longer blocked during STEP1.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.17.000</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -"
-                        "qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Score swap fixed.</span></p>\n"
+""
+                        "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.17.000</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Score swap fixed.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Installer is a little more compact.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Italian Translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Christian Ney</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">).</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] German Translation (Thanks </span><span style=\" fon"
-                        "t-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">der8auer</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">).</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] Italian Translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Christian Ney</span><span style=\""
+                        " font-family:'MS Shell Dlg 2'; font-size:8pt;\">).</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[ADD] German Translation (Thanks </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">der8auer</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">).</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] New logo and minor GUI changes.</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] aquamark.exe renamed to aquamark3.exe to avoid graphic driver app specific tweaks.</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" fo"
-                        "nt-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.16.000</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; "
+                        "margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.16.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Added a new HWBOT logo as </span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-style:italic;\">Massman</span><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\"> suggested.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Save/Submit buttons only appear after pressing the previous button(s) to avoid empty scores.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] i18n support based on Windows language. User ca"
-                        "n't manually change it.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Save/Submit buttons only appear after"
+                        " pressing the previous button(s) to avoid empty scores.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] i18n support based on Windows language. User can't manually change it.</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:600;\">2.08.000</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Fixed the archiving process.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Improved Win 8 support.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-ind"
-                        "ent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Minor GUI fixes</span></p>\n"
+"<p style=\" marg"
+                        "in-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Improved Win 8 support.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[FIX] Minor GUI fixes</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Supresses GPU-Z &quot;Install&quot; option automatically</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Uninstaller selfdeletes</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Removed the HASH check of the 2 dll's</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; fon"
-                        "t-size:8pt;\">[UPD] Inputbox sets default affinity to last core</span></p></body></html>", 0));
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; te"
+                        "xt-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Removed the HASH check of the 2 dll's</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'MS Shell Dlg 2'; font-size:8pt;\">[UPD] Inputbox sets default affinity to last core</span></p></body></html>", 0));
         toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("frmMain", "Changelog", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("frmMain", "About", 0));
         tabWidget->setTabToolTip(tabWidget->indexOf(tab_4), QApplication::translate("frmMain", "Keep up with the changes.", 0));

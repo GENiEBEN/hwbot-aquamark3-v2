@@ -14,7 +14,7 @@ QStringList Query_World_Records(QString Benchmark, int Limit){
     args << "--header=Accept: application/xml" << "-O"
             << "queryresult.xml"
             << "http://hwbot.org/api/ranking?application=" + Benchmark + "&limit=" + QString::number(Limit);
-    wget.start("wget/wget.dll",args);
+    wget.start("plugins/wget/wget.dll",args);
     wget.waitForFinished();
     wget.close();
 

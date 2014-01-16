@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtGui>
+#include <QTreeWidgetItem>
 
 extern QStringList applog;
 extern QString _printlog();
@@ -75,6 +76,8 @@ private slots:
 
     void on_cbScreenshotFormat_currentIndexChanged(const QString &arg1);
     
+    void on_treeWidget_itemClicked(QTreeWidgetItem *item, int column);
+
 private:
     Ui::frmMain *ui;
 

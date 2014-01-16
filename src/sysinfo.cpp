@@ -65,7 +65,7 @@ bool _rungpuz() {
     //Start GPU-Z and output to file
     QFile gpuzout("gpuz.out");if (gpuzout.exists()){gpuzout.remove();}
     QProcess gpuz;QStringList args;args << "-dump" << "gpuz.out";
-    gpuz.start("gpuz.dll", args);gpuz.waitForFinished(-1);gpuz.close();
+    gpuz.start("plugins/gpuz/gpuz.exe", args);gpuz.waitForFinished(-1);gpuz.close();
     return gpuzout.exists();
 }
 
@@ -73,7 +73,7 @@ bool _rundmid(QStringList args) {
     //Start DMI Decode and output to file
     QFile dmidout("dmid.out");if (dmidout.exists()){dmidout.remove();}
     QProcess dmid;
-    dmid.start("dmid.dll", args);dmid.waitForFinished(-1);dmid.close();
+    dmid.start("plugins/dmidecode/dmid.dll", args);dmid.waitForFinished(-1);dmid.close();
     return dmidout.exists();
 }
 
@@ -118,12 +118,12 @@ QString SYSINFO_CPU_COUNT() {
     QString result="1"; QString foo;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     int i=0; //default number of processors
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
@@ -207,12 +207,12 @@ QString SYSINFO_CPU_SPEED_NOW() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -236,12 +236,12 @@ QString SYSINFO_CPU_SPEED_MAX() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -265,12 +265,12 @@ QString SYSINFO_CPU_SPEED_EXTCLK() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -294,12 +294,12 @@ QString SYSINFO_CPU_SOCKET_NAME() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -329,12 +329,12 @@ QString SYSINFO_CPU_SOCKET_UPGRADE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -362,12 +362,12 @@ QString SYSINFO_CPU_VOLTAGE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -391,12 +391,12 @@ QString SYSINFO_CPU_FAMILY_NAME() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -420,12 +420,12 @@ QString SYSINFO_MOBO_VENDOR() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "2";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -460,12 +460,12 @@ QString SYSINFO_SYSTEM_SKU() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "1";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -569,12 +569,12 @@ QString SYSINFO_SYSTEM_PRODUCTNAME() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "1";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -695,12 +695,12 @@ QString SYSINFO_CHASSIS_TYPE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "3";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -725,12 +725,12 @@ QString SYSINFO_MOBO_NAME() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "2";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -768,12 +768,12 @@ QString SYSINFO_MOBO_SERIALNUMBER() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "2";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -801,12 +801,12 @@ QString SYSINFO_BIOS_VENDOR() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -838,12 +838,12 @@ QString SYSINFO_BIOS_VERSION() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -877,12 +877,12 @@ QString SYSINFO_BIOS_REVISION() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -908,12 +908,12 @@ QString SYSINFO_BIOS_FIRMWARE_REVISION() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -940,12 +940,12 @@ QString SYSINFO_BIOS_ROM_SIZE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -970,12 +970,12 @@ QString SYSINFO_BIOS_DATE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1000,12 +1000,12 @@ QString SYSINFO_BIOS_IS_UEFI() {
     QString result="Non-UEFI"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "0";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1027,12 +1027,12 @@ QString SYSINFO_MOBO_SOCKET_COUNT() {
     QString result="-"; QString foo;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "4";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     int i=0; //default number of processors
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
@@ -1055,12 +1055,12 @@ QString SYSINFO_RAM_MODULECOUNT() {
     QString result="-"; QString foo; int i=0;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1086,12 +1086,12 @@ QString SYSINFO_RAM_SLOTCOUNT() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1117,12 +1117,12 @@ QString SYSINFO_RAM_INSTALLEDSIZE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--t" << "19";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1147,12 +1147,12 @@ QString SYSINFO_RAM_MAXCAPACITY() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1177,12 +1177,12 @@ QString SYSINFO_RAM_FORMFACTOR() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1207,12 +1207,12 @@ QString SYSINFO_RAM_TYPE() {
     QString result="-"; QString foo; QStringList foolist;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1245,12 +1245,12 @@ QString SYSINFO_RAM_RATEDSPEED() {
     QString result=""; QString foo; QStringList foolist; QStringList resultlist;int i=0;bool skip=false;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1296,12 +1296,12 @@ QString SYSINFO_RAM_CONFIGUREDSPEED() {
     QString result=""; QString foo; QStringList foolist; QStringList resultlist;int i=0;bool skip=false;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1344,12 +1344,12 @@ QString SYSINFO_RAM_PARTNUMBER() {
     QString result=""; QString foo; QStringList foolist; QStringList resultlist;int i=0;bool skip=false;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1436,12 +1436,12 @@ QString SYSINFO_RAM_VENDOR() {
     QString result=""; QString foo; QStringList foolist; QStringList resultlist;int i=0;bool skip=false;
     //Start dmidecode and output to file
     QProcess dmidecode;QStringList args;args << "--type" << "memory";
-    dmidecode.setStandardOutputFile("dmid.out");
-    dmidecode.start("dmid.dll", args);
+    dmidecode.setStandardOutputFile("plugins/dmidecode/dmid.out");
+    dmidecode.start("plugins/dmidecode/dmid.dll", args);
     dmidecode.waitForFinished();
     dmidecode.close();
     //Open output file of dmidecode and parse
-    QFile dmiout("dmid.out");
+    QFile dmiout("plugins/dmidecode/dmid.out");
     if (dmiout.open(QIODevice::ReadOnly)){
         QTextStream in(&dmiout);
         while ( !in.atEnd() )
@@ -1517,13 +1517,9 @@ QString SYSINFO_RAM_VENDOR() {
     result.replace("AD","SK Hynix", Qt::CaseSensitive);//older models might be Hyundai.
     //
     result.replace("Manufacturer01","Unknown",Qt::CaseInsensitive);
-    result.replace("Manufacturer1","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer02","Unknown",Qt::CaseInsensitive);
-    result.replace("Manufacturer2","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer03","Unknown",Qt::CaseInsensitive);
-    result.replace("Manufacturer3","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer04","Unknown",Qt::CaseInsensitive);
-    result.replace("Manufacturer4","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer05","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer06","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer07","Unknown",Qt::CaseInsensitive);
@@ -1532,6 +1528,11 @@ QString SYSINFO_RAM_VENDOR() {
     result.replace("Manufacturer10","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer11","Unknown",Qt::CaseInsensitive);
     result.replace("Manufacturer12","Unknown",Qt::CaseInsensitive);
+    result.replace("Manufacturer0","Unknown",Qt::CaseInsensitive);
+    result.replace("Manufacturer1","Unknown",Qt::CaseInsensitive);
+    result.replace("Manufacturer2","Unknown",Qt::CaseInsensitive);
+    result.replace("Manufacturer3","Unknown",Qt::CaseInsensitive);
+    result.replace("Manufacturer4","Unknown",Qt::CaseInsensitive);
     result.replace("[Empty]","Unknown",Qt::CaseInsensitive);
     result.replace("Undefined","Unknown",Qt::CaseInsensitive);
     result.replace("Not Specified","Unknown",Qt::CaseInsensitive);
@@ -1591,11 +1592,11 @@ QString SYSINFO_OS_SP() {
         //Because of a stupid WOW64 redirection, you can't retrieve CSDVersion from registry,
         //so we will run an external compiled Batch Script
         QProcess csdv;
-        csdv.start("csdv.dll");
+        csdv.start("plugins/csdv/csdv.dll");
         csdv.waitForFinished();
         csdv.close();
         //Open output file and parse
-        QFile csdvout("csdv.out");
+        QFile csdvout("lugins/csdv/csdv.out");
         if (csdvout.open(QIODevice::ReadOnly)){
             QTextStream in(&csdvout);
             while ( !in.atEnd() ){ result = in.readLine(); }
@@ -2274,10 +2275,10 @@ QString SYSINFO_GFX_DRIVER_NAME() {
             if (    build.contains("131122a-165306E")){result="Catalyst 13.11 BETA9.4";}
             if (    build.contains("131129a-165578E")){result="Catalyst 13.11 BETA9.5";}}
         if (version=="13.250.22.0000"){                result="Catalyst 13.11 WHQL";}
-        if (version=="13.251.11.0000"){
-            if (    build.contains("131206a-165817C")){result="Catalyst 13.12 WHQL";}
+        if (version=="13.251.0.0000"){
             if (    build.contains("131206a-166151E")){result="Catalyst 13.12 WinUpdates";}}
-
+        if (version=="13.251.11.0000"){
+            if (    build.contains("131206a-165817C")){result="Catalyst 13.12 WHQL";}}
     }
     //NVIDIA
     if (deviceid=="10DE"){
@@ -2323,16 +2324,16 @@ QString SYSINFO_GFX_NAME() {
     //SPECIAL CASES
     //ATI-AMD
     if (GPU_VendorID.at(i)=="1002"){
-        if (GPU_DeviceID.at(i)=="4E4A"){      boo = "Radeon 9800 XXL";}
-        if (GPU_DeviceID.at(i)=="6658"){      boo = "Radeon R9 260X";}
-        if (GPU_DeviceID.at(i)=="665C"){      boo = "Radeon HD 7790";
+        if (GPU_DeviceID.at(i)=="4E4A"){    boo = "Radeon 9800 XXL";}
+        if (GPU_DeviceID.at(i)=="6658"){    boo = "Radeon R9 260X";}
+        if (GPU_DeviceID.at(i)=="665C"){    boo = "Radeon HD 7790";
             if (GPU_SubsysID.at(i)=="2932"){boo = "Radeon HD 8770";}
             if (GPU_SubsysID.at(i)=="8770"){boo = "Radeon HD 8770";}}
-        if (GPU_DeviceID.at(i)=="6718"){      boo = "Radeon HD 6970";}
-        if (GPU_DeviceID.at(i)=="6740"){      boo = "Radeon HD 6730M";}
-        if (GPU_DeviceID.at(i)=="6741"){      boo = "Radeon HD 6750M";}
-        if (GPU_DeviceID.at(i)=="67B1"){      boo = "Radeon R9 290";}
-        if (GPU_DeviceID.at(i)=="6798"){      boo = "Radeon HD 7990";//not sure!
+        if (GPU_DeviceID.at(i)=="6718"){    boo = "Radeon HD 6970";}
+        if (GPU_DeviceID.at(i)=="6740"){    boo = "Radeon HD 6730M";}
+        if (GPU_DeviceID.at(i)=="6741"){    boo = "Radeon HD 6750M";}
+        if (GPU_DeviceID.at(i)=="67B1"){    boo = "Radeon R9 290";}
+        if (GPU_DeviceID.at(i)=="6798"){    boo = "Radeon HD 7990";//not sure!
             if (GPU_SubsysID.at(i)=="0B00"){boo = "Radeon HD 7970";}//MSI
             if (GPU_SubsysID.at(i)=="2770"){boo = "Radeon HD 7970";}//MSI
             if (GPU_SubsysID.at(i)=="2774"){boo = "Radeon HD 7970 Twin Frozr III";}//MSI
@@ -2348,18 +2349,19 @@ QString SYSINFO_GFX_NAME() {
         if (GPU_DeviceID.at(i)=="679B"){
             if (GPU_SubsysID.at(i)=="0B28"){boo = "Radeon HD 8990";}//not sure why there are 2 ids for same card
             if (GPU_SubsysID.at(i)=="8036"){boo = "Radeon HD 8990";}}
-        if (GPU_DeviceID.at(i)=="67B0"){      boo = "Radeon R9 290X";}
-        if (GPU_DeviceID.at(i)=="6800"){      boo = "Radeon HD 7970M";}
-        if (GPU_DeviceID.at(i)=="6810"){      boo = "Radeon R9 270X";}
+        if (GPU_DeviceID.at(i)=="67B0"){    boo = "Radeon R9 290X";}
+        if (GPU_DeviceID.at(i)=="6800"){    boo = "Radeon HD 7970M";}
+        if (GPU_DeviceID.at(i)=="6810"){    boo = "Radeon R9 270X";}
         if (GPU_DeviceID.at(i)=="6899"){
             if (GPU_SubsysID.at(i)=="174B"){boo = "Radeon HD 5850";}}
-        if (GPU_DeviceID.at(i)=="689C"){      boo = "Radeon HD 5970";
+        if (GPU_DeviceID.at(i)=="689C"){    boo = "Radeon HD 5970";
             if (GPU_SubsysID.at(i)=="0352"){boo = "ARES";}
             if (GPU_SubsysID.at(i)=="039E"){boo = "Radeon HD 5870";}}
         if (GPU_DeviceID.at(i)=="68BA"){
             if (GPU_SubsysID.at(i)=="E144"){boo = "Radeon HD 6770";}}
-        if (GPU_DeviceID.at(i)=="68BE"){      boo = "Radeon HD 6750";}
-        if (GPU_DeviceID.at(i)=="68BF"){      boo = "Radeon HD 6770 Green";}
+        if (GPU_DeviceID.at(i)=="68BE"){    boo = "Radeon HD 6750";
+            if (GPU_SubsysID.at(i)=="1682"){boo = "Radeon HD 5750";}}//PCI\VEN_1002&DEV_68BE&SUBSYS_29801682&REV_00
+        if (GPU_DeviceID.at(i)=="68BF"){    boo = "Radeon HD 6770 Green";}
 
         boo.replace("ATI","",Qt::CaseSensitive);
         boo.replace("AMD","",Qt::CaseInsensitive);

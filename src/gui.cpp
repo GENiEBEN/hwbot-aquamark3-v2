@@ -32,6 +32,7 @@
 #include <QUrl>
 #include <QStyleFactory>
 #include <QByteArray>
+#include <QTreeWidget>
 
 
 void SetTheme(QString name){
@@ -1105,4 +1106,25 @@ void frmMain::on_slider_SSQuality_valueChanged(int value)
 {
     QSettings settings("GENiEBEN", "Aquamark3 Wrapper");
     settings.setValue("SS_Quality",value);
+}
+
+void frmMain::on_treeWidget_itemClicked(QTreeWidgetItem *item, int column){
+    ui->stack_settings->setCurrentIndex(0);
+
+    if (item->text(column)=="Tweaks" || item->text(column)=="Processor"){
+        ui->stack_settings->setCurrentIndex(1);
+    }
+    if (item->text(column)=="Video Card" || item->text(column)=="ATi / AMD"){
+        ui->stack_settings->setCurrentIndex(2);
+    }
+    if (item->text(column)=="Benchmark"){
+        ui->stack_settings->setCurrentIndex(3);
+    }
+    if (item->text(column)=="Interface"){
+        ui->stack_settings->setCurrentIndex(4);
+    }
+    if (item->text(column)=="System Info"){
+        ui->stack_settings->setCurrentIndex(5);
+    }
+
 }
