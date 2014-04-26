@@ -1,6 +1,5 @@
 #include "gui.h"
 #include "ui_gui.h"
-#include "sysinfo.h"
 #include "security.h"
 #include "aquamark3.h"
 #include "functions.h"
@@ -33,7 +32,7 @@
 #include <QStyleFactory>
 #include <QByteArray>
 #include <QTreeWidget>
-
+#include "sysinfo.h"
 
 void SetTheme(QString name){
     if (name == "Fusion (Dark)"){
@@ -67,6 +66,7 @@ frmMain::frmMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::frmMain)
     ui->tabWidget->setCurrentIndex(0);
 
     QString foo; QStringList foolist;
+    QSettings SI("GENiEBEN", "SystemInfo");
 
     //Read settings from registry
     QSettings settings("GENiEBEN", "Aquamark3 Wrapper");
@@ -96,7 +96,7 @@ frmMain::frmMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::frmMain)
     //Disable checkboxes that are not needed
     QList<QCheckBox *> lstCheckboxes = ui->frame->findChildren<QCheckBox *>();
     for (int i=0; i < lstCheckboxes.count(); i++){
-        if ( i < SYSINFO_CPU_THREADCOUNT().toInt() ){
+        if ( i < SI.value("CPU_Threads").toInt() ){
             lstCheckboxes[i]->setChecked(true);
             foo = settings.value(QString::number(i+1)).toString();//check which cores were used by user previously
             if (foo.toLower() == "false"){ lstCheckboxes[i]->setChecked(false);;}//select the ones user previously used
@@ -106,109 +106,106 @@ frmMain::frmMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::frmMain)
     }
     WriteLog("settings read and applied");
 
-    //Detect hardware configuration (only if user enabled SYSTEM INFO in settings tab)
+    //Display hardware configuration in GUI (only if user enabled SYSTEM INFO in settings tab)
     if (ui->cbSIenabled->currentText().toLower()=="enabled"){
+
         WriteLog("systeminfo is enabled");
-        WriteLog("dxdiag launched: " + QString::number(_rundxdiag()) );
         //CPU Info
         ui->lblCPU_Name->setText(QString("%1x %2")
-                                 .arg( SYSINFO_CPU_COUNT() )
-                                 .arg( SYSINFO_CPU_NAME() )
+                                 .arg( SI.value("CPU_Count").toString() )
+                                 .arg( SI.value("CPU_Name").toString() )
                                  );
         ui->lblCPU_Speed->setText(QString("%1T @ %2, Bus %3, %4")
-                                  .arg( SYSINFO_CPU_THREADCOUNT() )
-                                  .arg( SYSINFO_CPU_SPEED_NOW() )
-                                  .arg( SYSINFO_CPU_SPEED_EXTCLK() )
-                                  .arg( SYSINFO_CPU_VOLTAGE() )
+                                  .arg( SI.value("CPU_Threads").toString() )
+                                  .arg( SI.value("CPU_Now").toString() )
+                                  .arg( SI.value("CPU_ExtClk").toString() )
+                                  .arg( SI.value("CPU_Voltage").toString() )
                                   );
-        foo = SYSINFO_CPU_SOCKET_NAME();
-        if (!foo.contains("Socket") || !foo.contains("Slot")) { foo = SYSINFO_CPU_SOCKET_UPGRADE(); }
+        foo = SI.value("CPU_SkName").toString();
+        if (!foo.contains("Socket") || !foo.contains("Slot")) { foo = SI.value("CPU_SkUpgrade").toString(); }
         ui->lblCPU_Socket->setText(QString("%1, %2 Family")
                                    .arg( foo )
-                                   .arg( SYSINFO_CPU_FAMILY_NAME() )
+                                   .arg( SI.value("CPU_FamilyName").toString() )
                                    );
         //Motherboard Info
         ui->lblMB_Name->setText(QString("%1P %2 %3")
-                                .arg( SYSINFO_MOBO_SOCKET_COUNT() )
-                                .arg( SYSINFO_MOBO_VENDOR() )
-                                .arg( SYSINFO_MOBO_NAME() )
+                                .arg( SI.value("MOBO_SkCount").toString() )
+                                .arg( SI.value("MOBO_Vendor").toString() )
+                                .arg( SI.value("MOBO_Name").toString() )
                                 );
         ui->lblMB_Bios->setText(QString("%1 BIOS %2, %3, Rev %4")
-                                .arg( SYSINFO_BIOS_IS_UEFI() )
-                                .arg( SYSINFO_BIOS_VERSION() )
-                                .arg( SYSINFO_BIOS_DATE() )
-                                .arg( SYSINFO_BIOS_REVISION() )
+                                .arg( SI.value("BIOS_IsUEFI").toString() )
+                                .arg( SI.value("BIOS_Version").toString() )
+                                .arg( SI.value("BIOS_Date").toString() )
+                                .arg( SI.value("BIOS_Revision").toString() )
                                 );
         ui->lblMB_SN->setText(QString("S/N %1, Fw %2")
-                              .arg( SYSINFO_MOBO_SERIALNUMBER() )
-                              .arg( SYSINFO_BIOS_FIRMWARE_REVISION() )
+                              .arg( SI.value("MOBO_Serial").toString() )
+                              .arg( SI.value("BIOS_FwRev").toString() )
                               );
         //Memory Info
         ui->lblRAM_Name->setText(QString("%1x %2")
-                                 .arg( SYSINFO_RAM_MODULECOUNT() )
-                                 .arg( SYSINFO_RAM_VENDOR() )
+                                 .arg( SI.value("RAM_ModuleCount").toString() )
+                                 .arg( SI.value("RAM_Vendor").toString() )
                                  );
         ui->lblRAM_PN->setText(QString("%1")
-                               .arg( SYSINFO_RAM_PARTNUMBER() )
+                               .arg( SI.value("RAM_PartNumber").toString() )
                                );
-        foolist.clear(); foolist << SYSINFO_RAM_CONFIGUREDSPEED() << SYSINFO_RAM_RATEDSPEED();
+        foolist.clear(); foolist << SI.value("RAM_SpeedCfg").toString() << SI.value("RAM_SpeedRated").toString();
         if ( foolist.at(0)==" MHz" || foolist.at(0).toLower()=="unknown"){
             foo = QString("rated %1").arg( foolist.at(1) );
         } else {
             foo = QString("at %1").arg( foolist.at(0) );
         }
         ui->lblRAM_Size->setText(QString("%1 %2 %3 %4")
-                                 .arg( SYSINFO_RAM_INSTALLEDSIZE() )
-                                 .arg( SYSINFO_RAM_TYPE() )
-                                 .arg( SYSINFO_RAM_FORMFACTOR() )
+                                 .arg( SI.value("RAM_SizeInstalled").toString() )
+                                 .arg( SI.value("RAM_Type").toString() )
+                                 .arg( SI.value("RAM_FormFactor").toString() )
                                  .arg( foo )
                                  );
         //VideoCard Info
-        if(_rungpuz()==true){
-            WriteLog("gpuz dump result: 1");
-            ui->lblGFX_Name->setText(QString("%1x %2 %3")
-                                     .arg( SYSINFO_GFX_COUNT() )
-                                     .arg( SYSINFO_GFX_INTEGRATOR_NAME() )
-                                     .arg( SYSINFO_GFX_NAME() )
-                                     );
-            if (SYSINFO_GFX_SPEED_SHADER()==""){//if gpu has unified shaders
-                foo = QString("%1/%2")
-                        .arg(SYSINFO_GFX_SPEED_CORE())
-                        .arg(SYSINFO_GFX_SPEED_RAM());//speed is CORE/RAM
-            } else {
-                foo = QString("%1/%2/%3")
-                        .arg( SYSINFO_GFX_SPEED_CORE() )
-                        .arg( SYSINFO_GFX_SPEED_SHADER() )
-                        .arg( SYSINFO_GFX_SPEED_RAM() );//speed is CORE/SHADER/RAM
-            }//TODO: Add support for cards with BOOST clocks
-            ui->lblGFX_Speed->setText(QString("%1 %2 %3b %4")
-                                      .arg( SYSINFO_GFX_RAM_SIZE() )
-                                      .arg( SYSINFO_GFX_RAM_TYPE() )
-                                      .arg( SYSINFO_GFX_RAM_BUSWIDTH() )
-                                      .arg( foo )
-                                      );
-            ui->lblOS_ExtraInfo->setText(QString("%1 (%2,%3)")
-                                         .arg( SYSINFO_GFX_DRIVER_NAME() )
-                                         .arg( SYSINFO_GFX_DRIVER_VERSION() )
-                                         .arg( SYSINFO_GFX_DRIVER_DATE() )
-                                         );
-        } else { WriteLog("gpuz dump result: 0");}
+		ui->lblGFX_Name->setText(QString("%1x %2 %3")
+								 .arg( SI.value("GFX_Count").toString() )
+								 .arg( SI.value("GFX_IntegratorName").toString() )
+								 .arg( SI.value("GFX_Name").toString() )
+								 );
+		if (SI.value("GFX_SpeedShader").toString()==""){//if gpu has unified shaders
+			foo = QString("%1/%2")
+					.arg( SI.value("GFX_SpeedCore").toString() )
+					.arg( SI.value("GFX_SpeedRam").toString() );//speed is CORE/RAM
+		} else {
+			foo = QString("%1/%2/%3")
+					.arg( SI.value("GFX_SpeedCore").toString() )
+					.arg( SI.value("GFX_SpeedShader").toString() )
+					.arg( SI.value("GFX_SpeedRam").toString() );//speed is CORE/SHADER/RAM
+		}//TODO: Add support for cards with BOOST clocks
+		ui->lblGFX_Speed->setText(QString("%1 %2 %3b %4")
+								  .arg( SI.value("GFX_RamSize").toString() )
+								  .arg( SI.value("GFX_RamType").toString() )
+								  .arg( SI.value("GFX_RamBusWidth").toString() )
+								  .arg( foo )
+								  );
+		ui->lblOS_ExtraInfo->setText(QString("%1 (%2,%3)")
+									 .arg( SI.value("GFX_DriverName").toString() )
+									 .arg( SI.value("GFX_DriverVersion").toString() )
+									 .arg( SI.value("GFX_DriverDate").toString() )
+									 );
         //OS Info
-        foo = SYSINFO_OS_SP();
+        foo = SI.value("OS_ServicePack").toString();
         if (foo==""){
             ui->lblOS_Name->setText(QString("%1 %2-bits")
-                                    .arg( SYSINFO_OS_NAME() )
-                                    .arg( SYSINFO_OS_BITS() )
+                                    .arg( SI.value("OS_Name").toString() )
+                                    .arg( SI.value("OS_Bits").toString() )
                                     );
         } else {
             ui->lblOS_Name->setText(QString("%1 %2 %3-bits")
-                                    .arg( SYSINFO_OS_NAME() )
+                                    .arg( SI.value("OS_Name").toString() )
                                     .arg( foo )
-                                    .arg( SYSINFO_OS_BITS() )
+                                    .arg( SI.value("OS_Bits").toString() )
                                     );
         }
-        ui->lblOS_DX->setText( SYSINFO_GFX_DXVERSION() );
-        ui->lblGFX_Driver->setText( SYSINFO_GFX_OUTPUTPORTS() );
+        ui->lblOS_DX->setText( SI.value("GFX_DxVersion").toString() );
+        ui->lblGFX_Driver->setText( SI.value("GFX_OutputPorts").toString() );
         WriteLog("systeminfo displayed in gui");
     } else {
         WriteLog("systeminfo is disabled");

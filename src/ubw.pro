@@ -8,25 +8,27 @@ QT += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets xml
 
-TARGET = hwbotaqua3
+TARGET = ubw
 TEMPLATE = app
 
 # The application version
-VERSION_APP = 2.55.110
+VERSION_APP = 2.56.111
 # Define the preprocessor macro to get the application version in our application.
 DEFINES += APP_VERSION=\\\"$$VERSION_APP\\\"
 
-SOURCES += main.cpp sysinfo.cpp security.cpp \
+SOURCES += main.cpp security.cpp \
     gui.cpp \
     aquamark3.cpp \
     functions.cpp \
-    hwbotapi.cpp
+    hwbotapi.cpp \
+    sysinfo.cpp
 
-HEADERS  += sysinfo.h security.h \
+HEADERS  += security.h \
     gui.h \
     aquamark3.h \
     functions.h \
-    hwbotapi.h
+    hwbotapi.h \
+    sysinfo.h
 
 FORMS    += \
     gui.ui

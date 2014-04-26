@@ -4,11 +4,11 @@
 #  include <winver.h>
 # endif
 
-IDI_ICON1	ICON	DISCARDABLE	"C:\\Users\\GENiEBEN\\Google Drive\\dev\\my-apps\\HWBOT Aquamark³\\Source Code v2.5 (Qt5)\\hwbotaqua3\\icon.ico"
+IDI_ICON1	ICON	DISCARDABLE	"E:\\cloud\\GDrive\\dev\\github\\hwbot-aquamark3\\src\\res\\icon.ico"
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 2,50,105,0
-	PRODUCTVERSION 2,50,105,0
+	FILEVERSION 0,0,0,0
+	PRODUCTVERSION 0,0,0,0
 	FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 	FILEFLAGS VS_FF_DEBUG
@@ -23,12 +23,12 @@ VS_VERSION_INFO VERSIONINFO
 		BEGIN
 			BLOCK "040904b0"
 			BEGIN
-				VALUE "CompanyName", "GENiEBEN\0"
+				VALUE "CompanyName", "\0"
 				VALUE "FileDescription", "\0"
-				VALUE "FileVersion", "2.50.105.0\0"
+				VALUE "FileVersion", "0.0.0.0\0"
 				VALUE "LegalCopyright", "\0"
-				VALUE "OriginalFilename", "hwbotaqua3.exe\0"
-				VALUE "ProductName", "hwbotaqua3\0"
+				VALUE "OriginalFilename", "ubw.exe\0"
+				VALUE "ProductName", "ubw\0"
 				VALUE "ProductVersion", "0.0.0.0\0"
 			END
 		END

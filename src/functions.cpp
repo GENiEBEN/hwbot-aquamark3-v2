@@ -3,7 +3,7 @@
 #include <QStringList>
 #include <QFile>
 #include <QList>
-#include "sysinfo.h"
+#include <QSettings>
 #include "math.h"
 #include <iostream>
 #include <windows.h>
@@ -17,7 +17,9 @@ double round(double d){
 
 void WriteLog(QString text){
     //Create value to write
-    applog << QString("[%1] %2 \n").arg(SYSINFO_OS_TIMESTAMP()).arg(text);
+    QSettings SI("GENiEBEN","SystemInfo");
+
+    applog << QString("[%1] %2 \n").arg(SI.value("OS_TimeStamp").toString()).arg(text);
     //Delete existing log files
     QFile outfile(QString("log.txt"));
     if( outfile.exists() ){ outfile.remove(); }

@@ -1,10 +1,11 @@
 <RCC>
     <qresource prefix="/images">
-        <file>res\motherboard.png</file>
-        <file>res\ram.png</file>
-        <file>res\hwbot.ico</file>
-        <file>res\cpu.png</file>
-        <file>res\windows.png</file>
-        <file>res\gfx.png</file>
+        <file>res/motherboard.png</file>
+        <file>res/ram.png</file>
+        <file>res/hwbot.ico</file>
+        <file>res/cpu.png</file>
+        <file>res/windows.png</file>
+        <file>res/gfx.png</file>
+        <file>res/splash.png</file>
     </qresource>
 </RCC>

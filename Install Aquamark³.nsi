@@ -3,27 +3,27 @@
 ; Installer settings
 SetCompressor /SOLID lzma
 SetDatablockOptimize on
-VIProductVersion "2.55.110.0"
-VIAddVersionKey "ProductName" "HWBOT Aquamark3"
+VIProductVersion "2.56.111.0"
+VIAddVersionKey "ProductName" "Aquamark3"
 VIAddVersionKey "Comments" "This setup will install Aquamark3 and its dependencies."
 VIAddVersionKey "CompanyName" "GENiEBEN"
-VIAddVersionKey "FileVersion" "2.55.110"
+VIAddVersionKey "FileVersion" "2.56.111"
 
 XPStyle on
 
 ; The name of the installer
-Name "Install HWBOT Aquamark3 v2.55.110"
-BrandingText "(c) 2012-2013 GENiEBEN"
+Name "Install Aquamark3 v2.56.111"
+BrandingText "(c) 2012-2014 GENiEBEN"
 
 ; The file to write
-OutFile "Install HWBOT Aquamark³.exe"
+OutFile "Install Aquamark³.exe"
 
 ; The default installation directory
-InstallDir $PROGRAMFILES\HWBOT\Aquamark3
+InstallDir $PROGRAMFILES\GENiEBEN\UBW
 
 ; Registry key to check for directory (so if you install again, it will 
 ; overwrite the old one automatically)
-InstallDirRegKey HKCU "Software\GENiEBEN\Aquamark3 Wrapper" "InstallLocation"
+InstallDirRegKey HKCU "Software\GENiEBEN\UBW\Aquamark3" "InstallLocation"
 
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
@@ -57,49 +57,53 @@ Section "Main Files (required)"
 	CreateDirectory "$INSTDIR\wget"
 
 	; Put file there
-	File /r "release\benchmark"
-	File /r "release\wget"
-	File /r "release\plugins"
-	File /r "release\*.dll"
-	File /r "release\*.exe"
-	File /r "release\*.reg"
-	File /r "release\*.manifest"
+	File /r "src\release\benchmark\aquamark3"
+	File /r "src\release\wget"
+	File /r "src\release\plugins"
+	File /r "src\release\*.dll"
+	File /r "src\release\*.exe"
+	File /r "src\release\*.reg"
+	File /r "src\release\*.manifest"
 
-	;Write application settings into registry
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "InstallLocation" "$INSTDIR"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "Background" ""
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "HideError" "True"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "HideLogo" "True"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "OSDStats" "True"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "ProcessPrio" "High"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "RunMode" "AUTO"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "SystemInfo" "Enabled"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "Theme" "Fusion (Dark)"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "Screenshot" "JPG"
-	WriteRegStr HKCU "SOFTWARE\GENiEBEN\Aquamark3 Wrapper" "SS_Quality" "80"
+	; Write application settings into registry
+	
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "InstallLocation" "$INSTDIR"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "Background" ""
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "ProcessPrio" "High"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "SystemInfo" "Enabled"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "Theme" "Fusion (Dark)"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "Screenshot" "JPG"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW" "SS_Quality" "80"
+	
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW_Aquamark3" "InstallLocation" "$INSTDIR\benchmark\aquamark3"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW_Aquamark3" "HideError" "True"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW_Aquamark3" "HideLogo" "True"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW_Aquamark3" "OSDStats" "True"
+	WriteRegStr HKCU "SOFTWARE\GENiEBEN\UBW_Aquamark3" "RunMode" "AUTO"
+
 
 	; Write the uninstall keys for Windows
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "DisplayName" "HWBOT Aquamark3"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "DisplayVersion" "2.55.110"  
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "DisplayIcon" "$INSTDIR\hwbotaqua3.exe"   
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "UninstallString" "$INSTDIR\uninstall.exe"  
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "DisplayName" "HWBOT Aquamark3"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "DisplayVersion" "2.56.111"  
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "DisplayIcon" "$INSTDIR\ubw.exe"   
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "UninstallString" "$INSTDIR\uninstall.exe"  
 
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "URLInfoAbout" "http:\\elgenieben.blogspot.com"   
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "URLUpdateInfo" "http:\\forum.hwbot.org\showthread.php?t=67632"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "Publisher" "GENiEBEN"
-	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "HelpLink" "http:\\forum.hwbot.org\forumdisplay.php?f=110"  
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "NoModify" 1
-	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper" "NoRepair" 1
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "URLInfoAbout" "http:\\elgenieben.blogspot.com"   
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "URLUpdateInfo" "http:\\forum.hwbot.org\showthread.php?t=67632"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "Publisher" "GENiEBEN"
+	WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "HelpLink" "http:\\forum.hwbot.org\forumdisplay.php?f=110"  
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "NoModify" 1
+	WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3" "NoRepair" 1
 	WriteUninstaller "uninstall.exe"
   
 SectionEnd
 
 ; Optional section (can be disabled by the user)
 Section "Shortcuts"
-	CreateDirectory "$SMPROGRAMS\HWBOT\Aquamark3"
-	CreateShortCut "$SMPROGRAMS\HWBOT\Aquamark3\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-	CreateShortCut "$SMPROGRAMS\HWBOT\Aquamark3\HWBOT Aquamark3.lnk" "$INSTDIR\hwbotaqua3.exe" "" "$INSTDIR\hwbotaqua3.exe" 0
-	CreateShortCut "$DESKTOP\HWBOT Aquamark3.lnk" "$INSTDIR\hwbotaqua3.exe" "" "$INSTDIR\hwbotaqua3.exe" 0
+	CreateDirectory "$SMPROGRAMS\GENiEBEN\Aquamark3"
+	CreateShortCut "$SMPROGRAMS\GENiEBEN\Aquamark3\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
+	CreateShortCut "$SMPROGRAMS\GENiEBEN\Aquamark3\HWBOT Aquamark3.lnk" "$INSTDIR\ubw.exe" "" "$INSTDIR\ubw.exe" 0
+	CreateShortCut "$DESKTOP\Aquamark3.lnk" "$INSTDIR\ubw.exe" "" "$INSTDIR\ubw.exe" 0
 SectionEnd
 
 
@@ -108,8 +112,8 @@ SubSection "Prerequisites"
 	Section "Visual C++ 2008"
 		CreateDirectory "$INSTDIR\redis"
 		SetOutPath "$INSTDIR\redis"
-		File "release\redis\vcredist_2008_x64.exe"
-		File "release\redis\vcredist_2008_x86.exe"
+		File "src\release\redis\vcredist_2008_x64.exe"
+		File "src\release\redis\vcredist_2008_x86.exe"
 		ExecWait "$INSTDIR\redis\vcredist_2008_x86.exe /q"
 		${if} ${RunningX64}
 		ExecWait "$INSTDIR\redis\vcredist_2008_x64.exe /q"	
@@ -168,8 +172,8 @@ SubSection "Prerequisites"
 	Section "Visual C++ 2010"
 		CreateDirectory "$INSTDIR\redis"
 		SetOutPath "$INSTDIR\redis"
-		File "release\redis\vcredist_2010_x64.exe"
-		File "release\redis\vcredist_2010_x86.exe"
+		File "src\release\redis\vcredist_2010_x64.exe"
+		File "src\release\redis\vcredist_2010_x86.exe"
 		ExecWait "$INSTDIR\redis\vcredist_2010_x86.exe /q"
 		${if} ${RunningX64}
 		ExecWait "$INSTDIR\redis\vcredist_2010_x64.exe /q"
@@ -184,12 +188,12 @@ SubSectionEnd
 Section "Uninstall"
   
   ; Remove registry keys
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Aquamark3 Wrapper"
-  DeleteRegKey HKLM "SOFTWARE\GENiEBEN\Aquamark3 Wrapper"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\UBW_Aquamark3"
+  DeleteRegKey HKLM "SOFTWARE\GENiEBEN\UBW\Aquamark3"
 
   ; Remove files and uninstaller
   Delete "$INSTDIR\*.*"
-  Delete "$DESKTOP\HWBOT Aquamark3.lnk"
+  Delete "$DESKTOP\Aquamark3.lnk"
 
   ; Remove directories used
   RMDir /r "$SMPROGRAMS\GENiEBEN\Aquamark3\"

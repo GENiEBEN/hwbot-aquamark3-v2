@@ -1,4 +1,4 @@
-//HARDWARE INFO LIBRARY FOR GENiEBEN's APPLICATIONS v1.10
+//HARDWARE INFO LIBRARY FOR GENiEBEN's APPLICATIONS v1.11
 
 #include <QApplication>
 #include <QStringList>
@@ -753,6 +753,7 @@ QString SYSINFO_MOBO_NAME() {
     result.replace("To be filled by O.E.M.","",Qt::CaseInsensitive);
     result.replace("440BX Desktop Reference Platform","440BX",Qt::CaseInsensitive);
     result.replace("Virtual Machine","VM",Qt::CaseInsensitive);
+	result.replace("Base Board Product Name","Unknown",Qt::CaseInsensitive);
     //Specific cases
     QString chassistype = SYSINFO_CHASSIS_TYPE();
     QString productname = SYSINFO_SYSTEM_PRODUCTNAME();
@@ -1552,6 +1553,7 @@ QString SYSINFO_RAM_VENDOR() {
         if(pn.contains("SUPERTALENT")){result="Super Talent";}
         if(pn=="DDR3-2400 CL10 8G"){result="AVEXIR";}
         if(pn.contains("Vulcan")){result="Team Xtreme";}//Vulcan-1600
+        if(pn.startsWith("M471")){result="SAMSUNG";}
     }
     //
 
@@ -2129,7 +2131,7 @@ QString SYSINFO_GFX_DXVERSION() {
 }
 
 QString SYSINFO_GFX_OUTPUTPORTS() {
-    QString result="Used ports:"; QString foo; QStringList foolist; QStringList resultlist;int i=0;
+    QString result=""; QString foo; QStringList foolist; QStringList resultlist;int i=0;
     QString outputpath = qApp->property("Benchmark_Install_Path").toString();
     outputpath.append(_dxdiagpath);
     //Open output file of dmidecode and parse
